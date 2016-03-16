@@ -10,6 +10,14 @@ package clavicela;
  * @author toze
  */
 public class Request {
+    Date dfim;
+    Date dinicio;
+    WeekDay dia;
+    Time tinicio;
+    Time tfim;
+    //Pessoa pessoa;
+    
+    
     
     
 }
