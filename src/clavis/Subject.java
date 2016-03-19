@@ -3,14 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package clavicela;
+package clavis;
 
 /**
  *
  * @author toze
  */
-public class Atividade {
-    String descricao;
-    int codigo;
+public class Subject {
+    private String nome;
     
 }

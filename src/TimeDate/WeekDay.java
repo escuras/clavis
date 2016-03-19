@@ -1,11 +1,14 @@
+package TimeDate;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package clavicela;
 
 
+
+import TimeDate.Date;
 import java.text.ParseException;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -48,8 +51,9 @@ public class WeekDay extends Date {
         }
     }
     
+    @Override
     public String toString(){
-        return perName();
+        return this.perDayName();
     }
     
     private String calcDayName(){
@@ -62,6 +66,7 @@ public class WeekDay extends Date {
                 else local = new Locale("pt","PT");
             } 
             ResourceBundle sms = ResourceBundle.getBundle("langs.MensagemBundle", local);
+            
             return sms.getString("dia"+this.getDayNumber());
         } else{
             return "";
@@ -78,7 +83,7 @@ public class WeekDay extends Date {
     /**
      * @return the extenso
      */
-    public String perName() {
+    public String perDayName() {
         return extenso;
     }
 

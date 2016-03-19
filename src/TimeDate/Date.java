@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package clavicela;
+package TimeDate;
 
 import org.joda.time.DateTime;
 
@@ -16,8 +16,8 @@ public class Date {
     private int dia;
     private int mes;
     private int ano;
-    private int diasdoano;
-    private int semanasdoano;
+    private final int diasdoano;
+    private final int semanasdoano;
 
     public Date() {
         DateTime datr = new DateTime();
@@ -139,6 +139,7 @@ public class Date {
         }
     }
 
+    @Override
     public String toString() {
         String sdia;
         if (dia < 10) {

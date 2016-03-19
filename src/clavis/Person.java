@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package clavicela;
+package clavis;
 
 /**
  *
@@ -14,6 +14,7 @@ public class Person {
     private String identificacao;
     private String telefone;
     private String email;
+    private Function funcao;
     private int id;
     
     public Person(){
@@ -22,8 +23,18 @@ public class Person {
         telefone = "";
         email = "";
         id = 0;
+        funcao = null;
     }
     
+    
+    public Person(int id, String nome, String identificacao, String telefone, String email, Function funcao){
+        this.nome = nome;
+        this.identificacao = identificacao;
+        this.telefone = telefone;
+        this.email = email;
+        this.id = id;
+        this.funcao = funcao; 
+    }
     
     public Person(int id, String nome, String identificacao, String telefone, String email){
         this.nome = nome;
@@ -31,14 +42,7 @@ public class Person {
         this.telefone = telefone;
         this.email = email;
         this.id = id;
-    }
-    
-    public Person(String nome, String identificacao, String telefone, String email){
-        this.nome = nome;
-        this.identificacao = identificacao;
-        this.telefone = telefone;
-        this.email = email;
-        this.id = 0;
+        this.funcao = null; 
     }
     
     public Person(Person pess){
@@ -47,6 +51,7 @@ public class Person {
         this.telefone = pess.getPhone();
         this.email = pess.getEmail();
         this.id = pess.getId();
+        this.funcao = pess.getFuncao();
     }
     
     public boolean ComparePhone(String telefone){
@@ -135,5 +140,19 @@ public class Person {
      */
     public void setId(int id) {
         this.id = id;
+    }
+
+    /**
+     * @return the funcao
+     */
+    public Function getFuncao() {
+        return funcao;
+    }
+
+    /**
+     * @param funcao the funcao to set
+     */
+    public void setFuncao(Function funcao) {
+        this.funcao = funcao;
     }
 }

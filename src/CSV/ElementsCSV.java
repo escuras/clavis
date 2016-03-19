@@ -1,4 +1,4 @@
-package clavicela;
+package CSV;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -65,7 +65,7 @@ public class ElementsCSV {
     
     public String getByElement(int val) 
     {
-        if (exists()) {
+        if ((val < 10)&&(val >= 0)) {
             String[] valor = {String.valueOf(this.diasemana),String.valueOf(this.horaIni), String.valueOf(this.horaFim), String.valueOf(this.minutoIni), String.valueOf(this.minutoFim),this.nomedocente,this.cddocente, this.nomedisciplina, this.cddisciplina,this.sala};
             return valor[val];
         } else 
@@ -79,11 +79,6 @@ public class ElementsCSV {
     public int getDiasemana() 
     {
         return diasemana;
-    }
-    
-    private boolean exists()
-    {
-        return (diasemana != 0); 
     }
 
     /**

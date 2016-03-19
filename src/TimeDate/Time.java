@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package clavicela;
+package TimeDate;
 
 
 import org.joda.time.DateTime;
@@ -103,6 +103,28 @@ public class Time {
         if (this.segundos < 10) ssegundos = "0"+this.segundos; 
         else ssegundos = ""+this.segundos;
         return shora+":"+sminutos+":"+ssegundos;
+    }
+    
+     public String toString(int format){
+        String shora;
+        String shora2;
+        String sminutos;
+        String ssegundos;
+        if (this.hora < 10) shora = "0"+this.hora;
+        else shora = ""+this.hora;
+        if (this.minutos < 10) sminutos = "0"+this.minutos;
+        else sminutos = ""+this.minutos;
+        if (this.segundos < 10) ssegundos = "0"+this.segundos; 
+        else ssegundos = ""+this.segundos;
+        if (format == 0)return shora+":"+sminutos;
+        if (format == 1) {
+            if (this.hora > 12) return (this.hora -12)+":"+this.minutos+" pm";
+            else return (this.hora -12)+":"+this.minutos+" am";
+        }
+        else 
+        {
+            return shora+":"+sminutos+":"+ssegundos;
+        }
     }
     
     public int compareTime(Time time)

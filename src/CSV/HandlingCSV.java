@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package clavicela;
+package CSV;
 
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
@@ -75,6 +75,13 @@ public final class HandlingCSV {
                         if (reader.verifyReader()) 
                         {
                             entradas = reader.readAll();
+                            File file = new File("download"+System.getProperty("file.separator")+"horario_disciplinas.csv");
+                            if (!file.exists()) 
+                            { 
+                                File diretoria = new File("download");
+                                diretoria.mkdir();
+                                file.createNewFile();
+                            }
                             try (CSVWriter scv = new CSVWriter(new FileWriter(new File("download/horario_disciplinas.csv")),';')) {
                                 scv.writeAll(entradas);
                                 scv.flush();
@@ -96,8 +103,10 @@ public final class HandlingCSV {
         if (!entradas.isEmpty()) {
             ElementsCSV elemento;
             for (int i=1; entradas.size() > i; i++) {
-                elemento = new ElementsCSV(Integer.valueOf(entradas.get(i)[3]),Integer.valueOf(entradas.get(i)[4]),Integer.valueOf(entradas.get(i)[6]),Integer.valueOf(entradas.get(i)[5]),Integer.valueOf(entradas.get(i)[7]),entradas.get(i)[10], entradas.get(i)[12],entradas.get(i)[14],entradas.get(i)[13],entradas.get(i)[11]);
-                elementos.add(elemento);
+                if (entradas.size() >= 14) {
+                    elemento = new ElementsCSV(Integer.valueOf(entradas.get(i)[3]),Integer.valueOf(entradas.get(i)[4]),Integer.valueOf(entradas.get(i)[6]),Integer.valueOf(entradas.get(i)[5]),Integer.valueOf(entradas.get(i)[7]),entradas.get(i)[10], entradas.get(i)[12],entradas.get(i)[14],entradas.get(i)[13],entradas.get(i)[11]);
+                    elementos.add(elemento);
+                }
             }
         }
     }
