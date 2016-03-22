@@ -89,7 +89,6 @@ public class Locale {
             java.util.Locale loca = new java.util.Locale(valores[0], valores[1]);
             ResourceBundle sms = ResourceBundle.getBundle("langs.MensagemBundle", loca);
             if ((sms.getLocale().toString().equals(this.locale)) && (sms.containsKey(traducao))) {
-                System.out.println("SIM2");
                 this.traducao = sms.getString(traducao);
             }
         }

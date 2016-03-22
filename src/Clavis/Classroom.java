@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package clavis;
+package Clavis;
 
 /**
  *
@@ -14,6 +14,7 @@ public class Classroom extends Material{
     private int ncomputadores; 
     private int lugares;
     private boolean projetor;
+    private java.util.ArrayList<Subject> disciplinas;
     
     
     public Classroom(){
@@ -22,6 +23,7 @@ public class Classroom extends Material{
         this.ncomputadores = -1;
         this.lugares = -1;
         this.projetor = false;
+        this.disciplinas = new java.util.ArrayList<>();
     }
     
     public Classroom(Material m, int numero){
@@ -30,6 +32,7 @@ public class Classroom extends Material{
         this.ncomputadores = -1;
         this.lugares = -1;
         this.projetor = false;
+        this.disciplinas = new java.util.ArrayList<>();
     }
     
     public Classroom(Material m, int numero, int ncomputadores, int lugares, boolean projetor){
@@ -38,6 +41,16 @@ public class Classroom extends Material{
         this.ncomputadores = ncomputadores;
         this.lugares = lugares;
         this.projetor = projetor;
+        this.disciplinas = new java.util.ArrayList<>();
+    }
+    
+    public Classroom(Material m, int numero, int ncomputadores, int lugares, boolean projetor, java.util.ArrayList<Subject> disciplinas){
+        super(m);
+        this.numero = numero;
+        this.ncomputadores = ncomputadores;
+        this.lugares = lugares;
+        this.projetor = projetor;
+        this.disciplinas = disciplinas;
     }
 
     public Classroom(Classroom classroom){
@@ -46,8 +59,34 @@ public class Classroom extends Material{
         this.ncomputadores = classroom.getComputers();
         this.lugares = classroom.getPlaces();
         this.projetor = classroom.hasProjector();
+        this.disciplinas = classroom.getSubjects();
     }
     
+    public void addSubjectSpecific(Subject disciplina){
+        this.disciplinas.add(disciplina);
+    }
+    
+    public void addSubjectSpecific(int id, String disciplina, String code){
+        this.disciplinas.add(new Subject(id,disciplina,code));
+    }
+    
+    public void removeSuject(Subject disciplina){
+        this.disciplinas.stream().forEach((dis) -> {
+            if (dis.equals(disciplina)) this.disciplinas.remove(dis);
+        });
+    }
+
+    public void removeSuject(String disciplina){
+        this.disciplinas.stream().forEach((dis) -> {
+            if (dis.getName().equals(disciplina)) this.disciplinas.remove(dis);
+        });
+    }
+    
+    public String listSubjects(){
+        String lista = "";
+        lista = this.disciplinas.stream().map((dis) -> dis.getName()+"\n").reduce(lista, String::concat);
+        return lista;
+    } 
 
     /**
      * @return the numero
@@ -107,6 +146,20 @@ public class Classroom extends Material{
     
     public boolean hasSpace(int val) {
         return (val >= this.getPlaces());
+    }
+
+    /**
+     * @return the disciplinas
+     */
+    public java.util.ArrayList<Subject> getSubjects() {
+        return disciplinas;
+    }
+
+    /**
+     * @param disciplinas the disciplinas to set
+     */
+    public void setSubjects(java.util.ArrayList<Subject> disciplinas) {
+        this.disciplinas = disciplinas;
     }
     
 }

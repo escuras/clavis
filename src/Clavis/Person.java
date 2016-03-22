@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package clavis;
+package Clavis;
 
 /**
  *
@@ -15,6 +15,7 @@ public class Person {
     private String telefone;
     private String email;
     private Function funcao;
+    private int privilegio;
     private int id;
     
     public Person(){
@@ -24,25 +25,28 @@ public class Person {
         email = "";
         id = 0;
         funcao = null;
+        privilegio = -1;
     }
     
     
-    public Person(int id, String nome, String identificacao, String telefone, String email, Function funcao){
+    public Person(int id, String nome, String identificacao, String telefone, String email, Function funcao, int privilegio){
         this.nome = nome;
         this.identificacao = identificacao;
         this.telefone = telefone;
         this.email = email;
         this.id = id;
         this.funcao = funcao; 
+        this.privilegio = privilegio;
     }
     
-    public Person(int id, String nome, String identificacao, String telefone, String email){
+    public Person(int id, String nome, String identificacao, String telefone, String email, int privilegio){
         this.nome = nome;
         this.identificacao = identificacao;
         this.telefone = telefone;
         this.email = email;
         this.id = id;
         this.funcao = null; 
+        this.privilegio = privilegio;
     }
     
     public Person(Person pess){
@@ -51,7 +55,8 @@ public class Person {
         this.telefone = pess.getPhone();
         this.email = pess.getEmail();
         this.id = pess.getId();
-        this.funcao = pess.getFuncao();
+        this.funcao = pess.getFunction();
+        this.privilegio = pess.getPrivilege();
     }
     
     public boolean ComparePhone(String telefone){
@@ -145,14 +150,28 @@ public class Person {
     /**
      * @return the funcao
      */
-    public Function getFuncao() {
+    public Function getFunction() {
         return funcao;
     }
 
     /**
      * @param funcao the funcao to set
      */
-    public void setFuncao(Function funcao) {
+    public void setFunction(Function funcao) {
         this.funcao = funcao;
+    }
+
+    /**
+     * @return the privilegio
+     */
+    public int getPrivilege() {
+        return privilegio;
+    }
+
+    /**
+     * @param privilegio the privilegio to set
+     */
+    public void setPrivilege(int privilegio) {
+        this.privilegio = privilegio;
     }
 }
