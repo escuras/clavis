@@ -46,14 +46,13 @@ public final class HandlingCSV {
         elementos = trata.getElements();
     }
     
-    public void searchElements()
+    private void searchElements()
     {
         CSVReader reader;
         List<String[]> entradas = new ArrayList();
         try {           
             try { 
                 if ((this.url == null)||(!this.verifyConnectUrl())) {
-                    
                     File file = new File("download"+System.getProperty("file.separator")+"horario_disciplinas.csv");
                     if (!file.exists()) 
                     { 
@@ -61,8 +60,9 @@ public final class HandlingCSV {
                         diretoria.mkdir();
                         file.createNewFile();
                     }
-                    InputStream input = new FileInputStream(file);                  
-                    reader = new CSVReader(new InputStreamReader(input,"ISO-8859-1"),';');
+                    InputStream input = new FileInputStream(file);
+                    InputStreamReader r = new InputStreamReader(new FileInputStream(file));
+                    reader = new CSVReader(new InputStreamReader(input,r.getEncoding()),';');
                     if (reader.verifyReader()) 
                     {
                         entradas = reader.readAll();
@@ -104,7 +104,7 @@ public final class HandlingCSV {
             ElementsCSV elemento;
             for (int i=1; entradas.size() > i; i++) {
                 if (entradas.size() >= 14) {
-                    elemento = new ElementsCSV(Integer.valueOf(entradas.get(i)[3]),Integer.valueOf(entradas.get(i)[4]),Integer.valueOf(entradas.get(i)[6]),Integer.valueOf(entradas.get(i)[5]),Integer.valueOf(entradas.get(i)[7]),entradas.get(i)[10], entradas.get(i)[12],entradas.get(i)[14],entradas.get(i)[13],entradas.get(i)[11]);
+                    elemento = new ElementsCSV(Integer.valueOf(entradas.get(i)[3]),Integer.valueOf(entradas.get(i)[4]),Integer.valueOf(entradas.get(i)[6]),Integer.valueOf(entradas.get(i)[5]),Integer.valueOf(entradas.get(i)[7]),entradas.get(i)[10], entradas.get(i)[12],entradas.get(i)[14],entradas.get(i)[13],entradas.get(i)[11],entradas.get(i)[15]);
                     elementos.add(elemento);
                 }
             }
@@ -144,31 +144,14 @@ public final class HandlingCSV {
     
     public List<ElementsCSV> getElements() 
     {
-        if (elementos != null) return elementos;
-        else {
-            elementos = new ArrayList();
-            return elementos;
-        }
+        this.searchElements();
+        return elementos;
     }
     
     public boolean isEmpty()
     {
         if (elementos == null) return true;
         else return elementos.isEmpty();
-    }
-    
-    
-    public List<String> getElementsByPosition(int pos) 
-    {
-        List<String> list = new java.util.ArrayList();
-        if (!this.isEmpty()) 
-        {
-            for (int i = 0; i < elementos.size(); i++) 
-            {
-                list.add(elementos.get(i).getByElement(pos));
-            }
-        }
-        return list;
     }
 
     /**

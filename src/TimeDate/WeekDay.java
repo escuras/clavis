@@ -8,7 +8,6 @@ package TimeDate;
 
 
 
-import TimeDate.Date;
 import java.text.ParseException;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -40,11 +39,11 @@ public class WeekDay extends Date {
             int [][] modulos = {{0,3,3,6,1,4,6,2,5,0,3,5},
                             {0,3,4,0,2,5,0,3,6,1,4,6}
                            };
-            int auxiliar = (date.getAno() - 1)%7;
-            auxiliar += ((date.getAno()-1)/4-3*((date.getAno()-1)/101)/4)%7;
-            if (date.bisexto(date.getAno())) auxiliar += modulos[1][date.getMes()-1];
-            else auxiliar += modulos[0][date.getMes()-1];
-            auxiliar += (date.getDia()%7);
+            int auxiliar = (date.getYear() - 1)%7;
+            auxiliar += ((date.getYear()-1)/4-3*((date.getYear()-1)/101)/4)%7;
+            if (date.isLeap(date.getYear())) auxiliar += modulos[1][date.getMonth()-1];
+            else auxiliar += modulos[0][date.getMonth()-1];
+            auxiliar += (date.getDay()%7);
             this.dia = auxiliar%7;
             if (this.dia == 0) this.dia = 7;
             extenso= this.calcDayName();
@@ -65,8 +64,7 @@ public class WeekDay extends Date {
                 if (aux.length == 2) local = new Locale(aux[0],aux[1]);
                 else local = new Locale("pt","PT");
             } 
-            ResourceBundle sms = ResourceBundle.getBundle("langs.MensagemBundle", local);
-            
+            ResourceBundle sms = ResourceBundle.getBundle("langs.MensagemBundle", local);           
             return sms.getString("dia"+this.getDayNumber());
         } else{
             return "";
@@ -100,7 +98,20 @@ public class WeekDay extends Date {
      */
     public void setLocale(String locale) {
         this.locale = locale;
-        this.extenso = this.calcDayName();
-        
+        this.extenso = this.calcDayName();    
+    }
+    
+    public static int getDayWeek(Date date){
+        int [][] modulos = {{0,3,3,6,1,4,6,2,5,0,3,5},
+                            {0,3,4,0,2,5,0,3,6,1,4,6}
+                           };
+        int auxiliar = (date.getYear() - 1)%7;
+        auxiliar += ((date.getYear()-1)/4-3*((date.getYear()-1)/101)/4)%7;
+        if (date.isLeap(date.getYear())) auxiliar += modulos[1][date.getMonth()-1];
+        else auxiliar += modulos[0][date.getMonth()-1];
+        auxiliar += (date.getDay()%7);
+        int valor = auxiliar%7;
+        if (valor == 0) valor = 7;
+        return valor;
     }
 }

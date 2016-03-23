@@ -27,15 +27,28 @@ public class Date {
         diasdoano = datr.getDayOfYear();
         semanasdoano = datr.getWeekyear();
     }
+    
+     public Date(int dias) {
+        DateTime datr = new DateTime();
+        ano = datr.getYear();
+        mes = datr.getMonthOfYear();
+        dia = datr.getDayOfMonth();
+        Date aux = this.dateAfter(dias);
+        ano = aux.getYear();
+        mes = aux.getMonth();
+        dia = aux.getDay();
+        diasdoano = aux.getDayYear();
+        semanasdoano = aux.getWeekYear();
+    }
 
     public Date(int dia, int mes, int ano) {
         if ((mes <= 12) && (mes > 0)) {
-            if (validaDiasMes(dia, mes, ano)) {
+            if (this.validateMonthDays(dia, mes, ano)) {
                 this.mes = mes;
                 this.ano = ano;
                 this.dia = dia;
-                this.diasdoano = this.daysOfTheYear();
-                this.semanasdoano = this.weeksOfTheYear();
+                this.diasdoano = this.getDayOfTheYear();
+                this.semanasdoano = this.getWeekOfTheYear();
             } else {
                 this.mes = -1;
                 this.dia = -1;
@@ -57,11 +70,11 @@ public class Date {
         this.mes = date.mes;
         this.ano = date.ano;
         this.dia = date.dia;
-        this.diasdoano = date.daysOfTheYear();
-        this.semanasdoano = date.weeksOfTheYear();
+        this.diasdoano = date.getDayOfTheYear();
+        this.semanasdoano = date.getWeekOfTheYear();
     }
 
-    private boolean validaDiasMes(int dia, int mes, int ano) {
+    private boolean validateMonthDays(int dia, int mes, int ano) {
         switch (mes) {
             case 1:
             case 3:
@@ -77,7 +90,7 @@ public class Date {
             case 11:
                 return (dia <= 30) && (dia > 0);
             case 2:
-                if (bisexto(ano)) {
+                if (isLeap(ano)) {
                     return (dia <= 29) && (dia > 0);
                 } else {
                     return (dia <= 28) && (dia > 0);
@@ -87,14 +100,14 @@ public class Date {
         }
     }
 
-    public boolean bisexto(int ano) {
+    public boolean isLeap(int ano) {
         return (ano % 4 == 0) && ((ano % 100 != 0) || (ano % 400 == 0));
     }
 
     /**
      * @param mes the mes to set
      */
-    public void setMes(int mes) {
+    public void setMonth(int mes) {
         if ((mes <= 12) && (mes > 0)) {
             this.mes = mes;
         }
@@ -103,36 +116,36 @@ public class Date {
     /**
      * @return the mes
      */
-    public int getMes() {
-        return mes;
+    public int getMonth() {
+        return this.mes;
     }
 
     /**
      * @return the ano
      */
-    public int getAno() {
-        return ano;
+    public int getYear() {
+        return this.ano;
     }
 
     /**
      * @param ano the ano to set
      */
-    public void setAno(int ano) {
+    public void setYear(int ano) {
         this.ano = ano;
     }
 
     /**
      * @return the dia
      */
-    public int getDia() {
-        return dia;
+    public int getDay() {
+        return this.dia;
     }
 
     /**
      * @param dia the dia to set
      */
-    public void setDia(int dia) {
-        if (validaDiasMes(dia, mes, ano)) {
+    public void setDay(int dia) {
+        if (this.validateMonthDays(dia, mes, ano)) {
             this.dia = dia;
         } else {
             this.dia = 0;
@@ -193,44 +206,44 @@ public class Date {
     }
 
     public boolean betweenDates(Date date, Date date2) {
-        if (date.getAno() > date2.getAno()) {
+        if (date.getYear() > date2.getYear()) {
             Date aux = date2;
             date2 = date;
             date = aux;
-        } else if (date.getAno() == date2.getAno()) {
-            if (date.daysOfTheYear() > date2.daysOfTheYear()) {
+        } else if (date.getYear() == date2.getYear()) {
+            if (date.getDayYear() > date2.getDayYear()) {
                 Date aux = date2;
                 date2 = date;
                 date = aux;
             }
         }
-        if ((date.getAno() < this.ano) && (this.ano < date2.getAno())) {
+        if ((date.getYear() < this.ano) && (this.ano < date2.getYear())) {
             return true;
-        } else if ((date.getAno() <= this.ano) && (this.ano < date2.getAno())) {
-            if (date.getMes() < this.mes) {
+        } else if ((date.getYear() <= this.ano) && (this.ano < date2.getYear())) {
+            if (date.getMonth() < this.mes) {
                 return true;
-            } else if (date.getMes() == this.mes) {
-                return date.getDia() <= this.dia;
+            } else if (date.getMonth() == this.mes) {
+                return date.getDay() <= this.dia;
             } else {
                 return false;
             }
-        } else if ((date.getAno() < this.ano) && (this.ano <= date2.getAno())) {
-            if (date2.getMes() > this.mes) {
+        } else if ((date.getYear() < this.ano) && (this.ano <= date2.getYear())) {
+            if (date2.getMonth() > this.mes) {
                 return true;
-            } else if (date2.getMes() == this.mes) {
-                return date2.getDia() >= this.dia;
+            } else if (date2.getMonth() == this.mes) {
+                return date2.getDay() >= this.dia;
             } else {
                 return false;
             }
-        } else if ((date.getAno() == this.ano) && (this.ano == date2.getAno())) {
-            if ((date.getMes() < this.mes) && (this.mes < date2.getMes())) {
+        } else if ((date.getYear() == this.ano) && (this.ano == date2.getYear())) {
+            if ((date.getMonth() < this.mes) && (this.mes < date2.getMonth())) {
                 return true;
-            } else if ((date.getMes() == this.mes) && (this.mes < date2.getMes())) {
-                return date.getDia() <= this.dia;
-            } else if ((date.getMes() < this.mes) && (this.mes == date2.getMes())) {
-                return date2.getDia() >= this.dia;
-            } else if ((date.getMes() == this.mes) && (this.mes == date2.getMes())) {
-                return (date.getDia() <= this.dia) && (this.dia <= date2.getDia());
+            } else if ((date.getMonth() == this.mes) && (this.mes < date2.getMonth())) {
+                return date.getDay() <= this.dia;
+            } else if ((date.getMonth() < this.mes) && (this.mes == date2.getMonth())) {
+                return date2.getDay() >= this.dia;
+            } else if ((date.getMonth() == this.mes) && (this.mes == date2.getMonth())) {
+                return (date.getDay() <= this.dia) && (this.dia <= date2.getDay());
             } else {
                 return false;
             }
@@ -244,18 +257,18 @@ public class Date {
         int month = this.mes;
         int day = this.dia;
         if (dias > 0) {
-            if ((this.dia + dias) > (this.daysOfTheMonth(this.mes, this.ano))) {
+            if ((this.dia + dias) > (this.getDayOfTheMonth(this.mes, this.ano))) {
                 int[] meses = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-                int dauxiliar = this.daysOfTheYear() + dias;
+                int dauxiliar = this.getDayOfTheYear() + dias;
                 int anoauxiliar;
-                if (this.bisexto(this.ano)) {
+                if (this.isLeap(this.ano)) {
                     anoauxiliar = 366;
                 } else {
                     anoauxiliar = 365;
                 }
                 int i = 1;
                 while (dauxiliar > anoauxiliar) {
-                    if (this.bisexto(year)) {
+                    if (this.isLeap(year)) {
                         if (dauxiliar > 366) {
                             dauxiliar -= 366;
                             year = this.ano + i;
@@ -270,20 +283,20 @@ public class Date {
                             i++;
                         }
                     }
-                    if (this.bisexto(this.ano + i)) {
+                    if (this.isLeap(this.ano + i)) {
                         anoauxiliar = 366;
                     } else {
                         anoauxiliar = 365;
                     }
                 }
-                if (this.bisexto(year)) {
+                if (this.isLeap(year)) {
                     meses[2] = 29;
                 }
                 for (int j = 1; j < 13; j++) {
                     if (dauxiliar > meses[j]) {
                         dauxiliar -= meses[j];
-                        System.out.println(j + " Meses" + meses[j]);
-                        System.out.println("dias: " + dauxiliar);
+                        //System.out.println(j + " Meses" + meses[j]);
+                        //System.out.println("dias: " + dauxiliar);
                         month = j + 1;
                     } else {
                         day = dauxiliar;
@@ -301,21 +314,21 @@ public class Date {
 
     }
 
-    private int daysOfTheYear() {
+    private int getDayOfTheYear() {
         int i = 1;
         int conta = 0;
         while (i < this.mes) {
-            conta += this.daysOfTheMonth(i, this.ano);
+            conta += this.getDayOfTheMonth(i, this.ano);
             i++;
         }
         conta += this.dia;
         return conta;
     }
 
-    private int daysOfTheMonth(int mes, int ano) {
+    private int getDayOfTheMonth(int mes, int ano) {
         if ((mes > 0) && (mes < 13)) {
             int[] meses = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-            if (!this.bisexto(ano)) {
+            if (!this.isLeap(ano)) {
                 return meses[mes];
             } else {
                 meses[2] = 29;
@@ -326,8 +339,8 @@ public class Date {
         }
     }
 
-    private int weeksOfTheYear() {
-        int dias = this.daysOfTheYear();
+    private int getWeekOfTheYear() {
+        int dias = this.getDayOfTheYear();
         int conta = 1;
         while (dias > 7) {
             dias -= 7;
@@ -335,16 +348,63 @@ public class Date {
         }
         return conta;
     }
+    
+    public static int numberOfDaysBetweenDates(Date a, Date b){
+        int dias = 0;
+        if ((b.getYear() - a.getYear()) > 0 ){
+            int aux = a.getYear();
+            while (aux < b.getYear()){
+                if (a.isLeap(aux)) dias += 366;
+                else dias +=365;
+                aux++;
+            }
+            dias += b.getDayYear();
+            dias -= a.getDayYear();
+            return dias;
+        } else {
+            dias = b.getDayYear() - a.getDayYear();
+            if (dias > 0) return dias;
+            else return 0;
+        }
+        
+        
+    }
 
-    public int getSemanasDoAno() {
+    public int getWeekYear() {
         return this.semanasdoano;
     }
 
-    public int getDiasDoAno() {
+    public int getDayYear() {
         return this.diasdoano;
     }
     
     public boolean isValid(){
         return (!(this.dia == -1)||!(this.mes == -1)||!(this.ano == -1));
     }
+    
+    public static java.util.List<Date> DatesBetweenDates(Date a, Date b, int diaw){
+        java.util.List<Date> datas = new java.util.ArrayList<>(); 
+        int dias;
+        if ((dias = numberOfDaysBetweenDates(a,b)) > 0) {
+            int aux = 0;
+            int diaa = WeekDay.getDayWeek(a);
+            if (diaa < diaw) diaa = (diaw -diaa); 
+            else if (diaa == diaw) diaa = 0;
+            else diaa = (7 - diaa) + diaw;
+            while (diaa <= dias){
+                for (int i=1; i <= 7; i++){
+                    if (diaw == i){
+                        Date date = a.dateAfter(diaa);
+                        datas.add(date);
+                        break;
+                    }
+                } 
+                diaa += 7; 
+            }
+        }
+        return datas;
+        
+    }
+    
+    
 }

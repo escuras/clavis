@@ -42,6 +42,31 @@ public class Time {
         }
     }
     
+    public Time(int hora, int minutos)
+    {
+        if ((hora >= 0 )&&(hora <= 23)) 
+        {
+            if ((minutos >= 0)&&(minutos <= 59)) 
+            {
+                this.hora = hora;
+                this.minutos = minutos;
+                this.segundos = 0;
+            } 
+            else 
+            {
+                this.hora = -1;
+                this.minutos = -1;
+                this.segundos = -1;
+            }
+        } 
+        else 
+        {
+            this.hora = -1;
+            this.minutos = -1;
+            this.segundos = -1;
+        }
+    }
+    
     public Time(){
         DateTime tmr = new DateTime();
         this.hora = tmr.getHourOfDay();
@@ -52,42 +77,42 @@ public class Time {
     /**
      * @return the hora
      */
-    public int getHora() {
+    public int getHour() {
         return hora;
     }
 
     /**
      * @param hora the hora to set
      */
-    public void setHora(int hora) {
+    public void setHour(int hora) {
         if ((hora >= 0 )&&(hora <= 23)) this.hora = hora;
     }
 
     /**
      * @return the minutos
      */
-    public int getMinutos() {
+    public int getMinutes() {
         return minutos;
     }
 
     /**
      * @param minutos the minutos to set
      */
-    public void setMinutos(int minutos) {
+    public void setMinutes(int minutos) {
         if ((minutos >= 0)&&(minutos <= 59)) this.minutos = minutos;
     }
 
     /**
      * @return the segundos
      */
-    public int getSegundos() {
+    public int getSeconds() {
         return segundos;
     }
 
     /**
      * @param segundos the segundos to set
      */
-    public void setSegundos(int segundos) {
+    public void setSeconds(int segundos) {
         if ((segundos >= 0)&&(segundos <= 59)) this.segundos = segundos;
     }
     
@@ -132,14 +157,14 @@ public class Time {
         // valor maximo 86399, pois o dia tem 86400. Com -100000 serve para indicar erro na validação. Com 0 as horas são iguais. 
         if (!time.isValid()) return -100000;
         if ((hora > 23)||(hora < 0)||(minutos > 59)||(minutos < 0)||(segundos < 0)||(segundos > 59)) return -100000;
-        return ((time.getHora()-this.getHora())*3600) + ((time.getMinutos()-this.getMinutos())*60) + (time.getSegundos()-this.getSegundos());
+        return ((time.getHour()-this.getHour())*3600) + ((time.getMinutes()-this.getMinutes())*60) + (time.getSeconds()-this.getSeconds());
     }
     
     public int compareTime(int hora, int minutos, int segundos)
     {
         if ((hora > 23)||(hora < 0)||(minutos > 59)||(minutos < 0)||(segundos < 0)||(segundos > 59)) return -100000;
         Time time = new Time(hora,minutos,segundos);
-        return ((time.getHora()-this.getHora())*3600) + ((time.getMinutos()-this.getMinutos())*60) + (time.getSegundos()-this.getSegundos());
+        return ((time.getHour()-this.getHour())*3600) + ((time.getMinutes()-this.getMinutes())*60) + (time.getSeconds()-this.getSeconds());
     }
     
     public boolean isValid()

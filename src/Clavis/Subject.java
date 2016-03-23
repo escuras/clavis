@@ -26,6 +26,12 @@ public class Subject {
         this.codigo = codigo;
     }
     
+     public Subject(String nome,String codigo) {
+        this.nome = nome;
+        this.id = -1;
+        this.codigo = codigo;
+    }
+    
     public Subject(Subject disciplina) {
         this.nome = disciplina.getName();
         this.id = disciplina.getId();

@@ -33,6 +33,14 @@ public class TypeOfMaterial {
         this.imagem = "";
     }
     
+    public TypeOfMaterial(String descricao, int total){
+        this.id = -1;
+        this.descricao = descricao;
+        this.total = total;
+        this.livres = total;
+        this.imagem = "";
+    }
+    
     public TypeOfMaterial(int id, String descricao, int total){
         this.id = id;
         this.descricao = descricao;

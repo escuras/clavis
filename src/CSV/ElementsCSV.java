@@ -21,6 +21,7 @@ public class ElementsCSV {
     private String nomedisciplina;
     private String cddisciplina;
     private String sala;
+    private String cdsala;
     
     
     public ElementsCSV(){
@@ -34,9 +35,10 @@ public class ElementsCSV {
         nomedisciplina = "";
         cddisciplina = "";
         sala = "";
+        cdsala = "";
     }
     
-    public ElementsCSV(int diasemana, int horaIni, int horaFim, int minutoIni, int minutoFim, String nomedocente, String cddocente, String nomedisciplina, String cddisciplina, String sala){
+    public ElementsCSV(int diasemana, int horaIni, int horaFim, int minutoIni, int minutoFim, String nomedocente, String cddocente, String nomedisciplina, String cddisciplina, String sala, String cdsala){
         this.diasemana = diasemana;
         this.horaIni = horaIni;
         this.minutoIni = minutoIni;
@@ -47,36 +49,29 @@ public class ElementsCSV {
         this.nomedisciplina = nomedisciplina;
         this.cddisciplina = cddisciplina;
         this.sala = sala;
+        this.cdsala = cdsala;
     }
     
     public ElementsCSV(ElementsCSV csv)
     {
-        this.diasemana = csv.diasemana;
-        this.horaIni = csv.horaIni;
-        this.minutoIni = csv.minutoIni;
-        this.horaFim = csv.horaFim;
-        this.minutoFim = csv.minutoFim;
-        this.nomedocente = csv.nomedocente;
-        this.cddocente = csv.cddocente;
-        this.nomedisciplina = csv.nomedisciplina;
-        this.cddisciplina = csv.cddisciplina;
-        this.sala = csv.sala;
+        this.diasemana = csv.getDayWeek();
+        this.horaIni = csv.getHourIni();
+        this.minutoIni = csv.getMinuteIni();
+        this.horaFim = csv.getHourEnd();
+        this.minutoFim = csv.getMinuteEnd();
+        this.nomedocente = csv.getTeacherName();
+        this.cddocente = csv.getCdTeacher();
+        this.nomedisciplina = csv.getSubjectName();
+        this.cddisciplina = csv.getCdSubject();
+        this.sala = csv.getClassRoom();
+        this.cdsala = csv.getCdClassRoom();
     }
-    
-    public String getByElement(int val) 
-    {
-        if ((val < 10)&&(val >= 0)) {
-            String[] valor = {String.valueOf(this.diasemana),String.valueOf(this.horaIni), String.valueOf(this.horaFim), String.valueOf(this.minutoIni), String.valueOf(this.minutoFim),this.nomedocente,this.cddocente, this.nomedisciplina, this.cddisciplina,this.sala};
-            return valor[val];
-        } else 
-            return "none";
-        
-    }
+   
 
     /**
      * @return the diasemana
      */
-    public int getDiasemana() 
+    public int getDayWeek() 
     {
         return diasemana;
     }
@@ -84,133 +79,147 @@ public class ElementsCSV {
     /**
      * @param diasemana the diasemana to set
      */
-    public void setDiasemana(int diasemana) {
+    public void setDayWeek(int diasemana) {
         this.diasemana = diasemana;
     }
 
     /**
      * @return the horaIni
      */
-    public int getHoraIni() {
+    public int getHourIni() {
         return horaIni;
     }
 
     /**
      * @param horaIni the horaIni to set
      */
-    public void setHoraIni(int horaIni) {
+    public void setHourIni(int horaIni) {
         this.horaIni = horaIni;
     }
 
     /**
      * @return the minutoIni
      */
-    public int getMinutoIni() {
+    public int getMinuteIni() {
         return minutoIni;
     }
 
     /**
      * @param minutoIni the minutoIni to set
      */
-    public void setMinutoIni(int minutoIni) {
+    public void setMinuteIni(int minutoIni) {
         this.minutoIni = minutoIni;
     }
 
     /**
      * @return the horaFim
      */
-    public int getHoraFim() {
+    public int getHourEnd() {
         return horaFim;
     }
 
     /**
      * @param horaFim the horaFim to set
      */
-    public void setHoraFim(int horaFim) {
+    public void setHourEnd(int horaFim) {
         this.horaFim = horaFim;
     }
 
     /**
      * @return the minutoFim
      */
-    public int getMinutoFim() {
+    public int getMinuteEnd() {
         return minutoFim;
     }
 
     /**
      * @param minutoFim the minutoFim to set
      */
-    public void setMinutoFim(int minutoFim) {
+    public void setMinuteEnd(int minutoFim) {
         this.minutoFim = minutoFim;
     }
 
     /**
      * @return the nomedocente
      */
-    public String getNomedocente() {
+    public String getTeacherName() {
         return nomedocente;
     }
 
     /**
      * @param nomedocente the nomedocente to set
      */
-    public void setNomedocente(String nomedocente) {
+    public void setTeacherName(String nomedocente) {
         this.nomedocente = nomedocente;
     }
 
     /**
      * @return the cddocente
      */
-    public String getCddocente() {
+    public String getCdTeacher() {
         return cddocente;
     }
 
     /**
      * @param cddocente the cddocente to set
      */
-    public void setCddocente(String cddocente) {
+    public void setCdTeacher(String cddocente) {
         this.cddocente = cddocente;
     }
 
     /**
      * @return the nomedisciplina
      */
-    public String getNomedisciplina() {
+    public String getSubjectName() {
         return nomedisciplina;
     }
 
     /**
      * @param nomedisciplina the nomedisciplina to set
      */
-    public void setNomedisciplina(String nomedisciplina) {
+    public void setSubjectName(String nomedisciplina) {
         this.nomedisciplina = nomedisciplina;
     }
 
     /**
      * @return the cddisciplina
      */
-    public String getCddisciplina() {
+    public String getCdSubject() {
         return cddisciplina;
     }
 
     /**
      * @param cddisciplina the cddisciplina to set
      */
-    public void setCddisciplina(String cddisciplina) {
+    public void setCdSubject(String cddisciplina) {
         this.cddisciplina = cddisciplina;
     }
 
     /**
      * @return the sala
      */
-    public String getSala() {
+    public String getClassRoom() {
         return sala;
     }
 
     /**
      * @param sala the sala to set
      */
-    public void setSala(String sala) {
+    public void setClassRoom(String sala) {
         this.sala = sala;
+    }
+
+    /**
+     * @return the cdsala
+     */
+    public String getCdClassRoom() {
+        return cdsala;
+    }
+
+    /**
+     * @param cdsala the cdsala to set
+     */
+    public void setCdClassRoom(String cdsala) {
+        this.cdsala = cdsala;
     }
 }

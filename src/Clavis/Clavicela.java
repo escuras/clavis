@@ -29,10 +29,10 @@ public class Clavicela {
     public static void main(String[] args) throws ParseException, ParserConfigurationException, SAXException, IOException {
         Date dat = new Date(7, 5, 2018);
         System.out.println(dat.toString(":"));
-        System.out.println(dat.getDiasDoAno());
-        System.out.println(dat.getSemanasDoAno());
+        System.out.println(dat.getDayYear());
+        System.out.println(dat.getWeekYear());
         System.out.println(dat.dateAfter(0));
-        System.out.println(dat.bisexto(2016));
+        System.out.println(dat.isLeap(2016));
         Time time = new Time();
         System.out.println(time.toString(1));
         Time time1 = new Time(23, 59, 59);
@@ -47,13 +47,12 @@ public class Clavicela {
         System.out.println(diaa.toString());
         Function fun = new Function(1, "Professor", 1);
         HandlingCSV han = new HandlingCSV("http://localhost:8080/horario_disciplinas.csv");
-        han.searchElements();
         List<ElementsCSV> elementos = han.getElements();
         elementos.stream().forEach((el) -> {
-            System.out.println(el.getByElement(0));
+            System.out.println(el.getTeacherName());
         });
         TypeOfMaterial sala = new TypeOfMaterial(1, "sala", 50);
-        Material m = new Material(sala, 2, "sala 1", "sala localizada em ...", false);
+        Material m = new Material(sala, "2", "sala 1", "sala localizada em ...", false);
         Classroom sala1 = new Classroom(m, 1, 50, 80, true);
         System.out.println(sala.toString());
         System.out.println(sala1.toString());
@@ -92,7 +91,7 @@ public class Clavicela {
         if (teste.getMaterials().size() > 0) {
             for (Material mo : teste.getMaterials()) {
                 System.out.println(mo.getFeatures());
-                mo.setCodeOfMaterial(4);
+                mo.setCodeOfMaterial("4");
             }
         }
         Material ma = teste.getMaterials().get(0);
@@ -100,7 +99,7 @@ public class Clavicela {
         ma.setDescription("iisssooo");
         System.out.println(ma.getDescription());
         System.out.println(ma.getCodeOfMaterial());
-        ma.setCodeOfMaterial(4);
+        ma.setCodeOfMaterial("rto");
         System.out.println(ma.getCodeOfMaterial());
         ma.setMaterialImage(FileIOAux.ImageAux.resize(FileIOAux.ImageAux.getImageFromFile(null),100,100), FileIOAux.ImageAux.extensao);
         //System.out.println(ma.getMaterialImage());

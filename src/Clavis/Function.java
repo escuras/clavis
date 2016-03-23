@@ -24,6 +24,12 @@ public class Function {
         this.privilegio = 0;
     }
     
+     public Function( String nome, int privilegio){
+        this.nome = nome;
+        this.id = -1;
+        this.privilegio = privilegio;
+    } 
+    
     public Function(int id, String nome, int privilegio){
         this.nome = nome;
         this.id = id;

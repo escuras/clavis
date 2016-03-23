@@ -154,8 +154,8 @@ public class DataBase {
                             Clavis.TypeOfMaterial tipo;
                             if (rs2.getString("Imagem").equals("nada")) tipo = new Clavis.TypeOfMaterial(rs2.getInt("id_tipo"),rs2.getString("descricao"),rs2.getInt("total"), rs2.getInt("livres"),rs2.getString("imagem"));
                             else tipo = new Clavis.TypeOfMaterial(rs2.getInt("id_tipo"),rs2.getString("descricao"),rs2.getInt("total"), rs2.getInt("livres"));
-                            if (rs.getString("imagem") != null) material = new Clavis.Material(tipo, rs.getInt("id_material"),rs.getString("descricao"),rs.getString("caracteristicas"), rs.getString("imagem"),rs.getBoolean("estado"));
-                            else material = new Clavis.Material(tipo, rs.getInt("id_material"),rs.getString("descricao"),rs.getString("caracteristicas"), rs.getBoolean("estado"));
+                            if (rs.getString("imagem") != null) material = new Clavis.Material(tipo, rs.getString("codigo"),rs.getString("descricao"),rs.getString("caracteristicas"), rs.getString("imagem"),rs.getBoolean("estado"));
+                            else material = new Clavis.Material(tipo, rs.getString("codigo"),rs.getString("descricao"),rs.getString("caracteristicas"), rs.getBoolean("estado"));
                             materiais.add(material);
                             
                         }
@@ -191,8 +191,8 @@ public class DataBase {
                             Clavis.TypeOfMaterial tipo;
                             if (rs2.getString("Imagem").equals("nada")) tipo = new Clavis.TypeOfMaterial(rs2.getInt("id_tipo"),rs2.getString("descricao"),rs2.getInt("total"), rs2.getInt("livres"),rs2.getString("imagem"));
                             else tipo = new Clavis.TypeOfMaterial(rs2.getInt("id_tipo"),rs2.getString("descricao"),rs2.getInt("total"), rs2.getInt("livres"));
-                            if (rs.getString("imagem") != null) material = new Clavis.Material(tipo, rs.getInt("id_material"),rs.getString("descricao"),rs.getString("caracteristicas"), rs.getString("imagem"),rs.getBoolean("estado"));
-                            else material = new Clavis.Material(tipo, rs.getInt("id_material"),rs.getString("descricao"),rs.getString("caracteristicas"), rs.getBoolean("estado"));
+                            if (rs.getString("imagem") != null) material = new Clavis.Material(tipo, rs.getString("codigo"),rs.getString("descricao"),rs.getString("caracteristicas"), rs.getString("imagem"),rs.getBoolean("estado"));
+                            else material = new Clavis.Material(tipo, rs.getString("codigo"),rs.getString("descricao"),rs.getString("caracteristicas"), rs.getBoolean("estado"));
                             materiais.add(material);
                         }
                     }
@@ -202,5 +202,7 @@ public class DataBase {
         }
         return materiais;
     }
+    
+    
 
 }

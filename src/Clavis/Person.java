@@ -28,6 +28,15 @@ public class Person {
         privilegio = -1;
     }
     
+    public Person(String nome, String identificacao,Function funcao,int privilegio){
+        this.nome = nome;
+        this.identificacao = identificacao;
+        this.telefone = "";
+        this.email = "";
+        this.id = -1;
+        this.funcao = funcao; 
+        this.privilegio = privilegio;
+    }
     
     public Person(int id, String nome, String identificacao, String telefone, String email, Function funcao, int privilegio){
         this.nome = nome;

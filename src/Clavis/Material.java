@@ -19,7 +19,7 @@ import javax.imageio.ImageIO;
  * @author toze
  */
 public class Material extends TypeOfMaterial {
-    private int codigo;
+    private String codigo;
     private String descricao;
     private String caracteristicas;
     private boolean estado;
@@ -27,14 +27,14 @@ public class Material extends TypeOfMaterial {
     
     public Material(){
         super();
-        this.codigo = -1;
+        this.codigo = "";
         this.descricao = "";
         this.caracteristicas = "";
         this.estado = false;
         this.imagem = "";
     }
     
-    public Material(TypeOfMaterial m, int codigo, String descricao,boolean estado){
+    public Material(TypeOfMaterial m, String codigo, String descricao,boolean estado){
         super(m);
         this.codigo = codigo;
         this.descricao = descricao;
@@ -43,7 +43,7 @@ public class Material extends TypeOfMaterial {
         this.imagem = "";
     }
     
-    public Material(TypeOfMaterial m, int codigo, String descricao, String caracteristicas, boolean estado){
+    public Material(TypeOfMaterial m, String codigo, String descricao, String caracteristicas, boolean estado){
         super(m);
         this.codigo = codigo;
         this.descricao = descricao;
@@ -52,7 +52,7 @@ public class Material extends TypeOfMaterial {
         this.imagem = "";
     }
     
-    public Material(TypeOfMaterial m, int codigo, String descricao, String caracteristicas, String imagem, boolean estado){
+    public Material(TypeOfMaterial m, String codigo, String descricao, String caracteristicas, String imagem, boolean estado){
         super(m);
         this.codigo = codigo;
         this.descricao = descricao;
@@ -61,7 +61,7 @@ public class Material extends TypeOfMaterial {
         this.imagem = imagem;
     }
     
-    public Material(TypeOfMaterial m, int codigo, String descricao, String caracteristicas, BufferedImage imagem, String extensao, int largura, int altura, boolean estado){
+    public Material(TypeOfMaterial m, String codigo, String descricao, String caracteristicas, BufferedImage imagem, String extensao, int largura, int altura, boolean estado){
         super(m);
         this.codigo = codigo;
         this.descricao = descricao;
@@ -94,14 +94,14 @@ public class Material extends TypeOfMaterial {
     /**
      * @return the id
      */
-    public int getCodeOfMaterial() {
+    public String getCodeOfMaterial() {
         return codigo;
     }
 
     /**
      * @param codigo
      */
-    public void setCodeOfMaterial(int codigo) {
+    public void setCodeOfMaterial(String codigo) {
         this.codigo = codigo;
     }
 
