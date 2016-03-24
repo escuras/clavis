@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package langs;
+package Langs;
 
 import java.io.IOException;
 import java.net.URL;
@@ -35,11 +35,6 @@ public class Locale {
              linguas = new java.util.HashSet<>();
         }
     }
-
-    public Locale(Locale local) {
-        linguas = new java.util.HashSet<>();
-    }
-
 
     public void setLocale(String local) {
         if (this.linguas.size() > 0) {
@@ -87,7 +82,22 @@ public class Locale {
         this.traducao = null;
         if (valores.length == 2) {
             java.util.Locale loca = new java.util.Locale(valores[0], valores[1]);
-            ResourceBundle sms = ResourceBundle.getBundle("langs.MensagemBundle", loca);
+            ResourceBundle sms = ResourceBundle.getBundle("Langs.MensagemBundle", loca);
+            if ((sms.getLocale().toString().equals(this.locale)) && (sms.containsKey(traducao))) {
+                this.traducao = sms.getString(traducao);
+            }
+        }
+        if (this.traducao == null) this.traducao = traducao;
+        return this.traducao;  
+    }
+    
+    
+    public String translate(String traducao,String bundle){
+        String [] valores = this.locale.split("[-./|;,:_]");
+        this.traducao = null;
+        if (valores.length == 2) {
+            java.util.Locale loca = new java.util.Locale(valores[0], valores[1]);
+            ResourceBundle sms = ResourceBundle.getBundle(bundle, loca);
             if ((sms.getLocale().toString().equals(this.locale)) && (sms.containsKey(traducao))) {
                 this.traducao = sms.getString(traducao);
             }

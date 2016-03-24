@@ -6,19 +6,40 @@
 package Main;
 
 import com.sun.glass.events.KeyEvent;
+import java.awt.BorderLayout;
 import java.awt.Button;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Cursor;
+import java.awt.Dimension;
 import java.awt.Event;
 import java.awt.Font;
+import java.awt.Rectangle;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.awt.event.WindowStateListener;
+import java.util.ArrayList;
+import java.util.List;
+import javafx.scene.layout.Border;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.KeyStroke;
+import javax.swing.SwingUtilities;
+import javax.swing.plaf.basic.BasicSplitPaneDivider;
+import javax.swing.plaf.basic.BasicSplitPaneUI;
 
 /**
  *
@@ -30,8 +51,10 @@ public class KeyQuest extends javax.swing.JFrame {
      * Creates new form KeyQuest
      */
     public KeyQuest() {
+        initLang("fr-FR");
         initComponents();
         initAnotherComponents();
+        caracteristicsJFrame();
         
     }
 
@@ -44,190 +67,318 @@ public class KeyQuest extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jSplitPane1 = new javax.swing.JSplitPane();
-        jPanelEsquerda = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
-        jPanelDireita = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        jPanelInicial = new javax.swing.JPanel();
+        jSplitPaneInicial = new javax.swing.JSplitPane();
+        jPanelCima = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jPanelBaixo = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(800, 600));
-        setPreferredSize(new java.awt.Dimension(900, 700));
+        setFocusableWindowState(false);
+        setMinimumSize(new java.awt.Dimension(700, 500));
 
-        jPanel1.setBackground(new java.awt.Color(25, 25, 25));
-        jPanel1.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(222, 222, 222)));
-        jPanel1.setForeground(new java.awt.Color(246, 246, 246));
-        jPanel1.setMinimumSize(new java.awt.Dimension(800, 600));
-        jPanel1.setPreferredSize(new java.awt.Dimension(900, 700));
+        jPanelInicial.setBackground(new java.awt.Color(25, 25, 25));
+        jPanelInicial.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(222, 222, 222)));
+        jPanelInicial.setForeground(new java.awt.Color(224, 19, 19));
+        jPanelInicial.setMinimumSize(new java.awt.Dimension(700, 400));
+        jPanelInicial.setName(""); // NOI18N
+        jPanelInicial.setPreferredSize(new java.awt.Dimension(700, 400));
 
-        jSplitPane1.setBackground(new java.awt.Color(1, 1, 1));
-        jSplitPane1.setDividerLocation(400);
-        jSplitPane1.setDividerSize(20);
-        jSplitPane1.setToolTipText("");
-        jSplitPane1.setMinimumSize(new java.awt.Dimension(600, 400));
-        jSplitPane1.setOneTouchExpandable(true);
-        jSplitPane1.setPreferredSize(new java.awt.Dimension(800, 600));
+        jSplitPaneInicial.setBackground(new java.awt.Color(1, 1, 1));
+        jSplitPaneInicial.setDividerLocation(400);
+        jSplitPaneInicial.setDividerSize(20);
+        jSplitPaneInicial.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
+        jSplitPaneInicial.setResizeWeight(0.5);
+        jSplitPaneInicial.setAutoscrolls(true);
+        jSplitPaneInicial.setMaximumSize(new java.awt.Dimension(21473434, 21473434));
+        jSplitPaneInicial.setMinimumSize(new java.awt.Dimension(0, 0));
+        jSplitPaneInicial.setName(""); // NOI18N
+        jSplitPaneInicial.setOneTouchExpandable(true);
+        jSplitPaneInicial.setPreferredSize(new java.awt.Dimension(800, 700));
 
-        jPanelEsquerda.setBackground(new java.awt.Color(158, 163, 199));
-        jPanelEsquerda.addMouseListener(new java.awt.event.MouseAdapter() {
+        jPanelCima.setBackground(new java.awt.Color(158, 163, 199));
+        jPanelCima.setPreferredSize(new java.awt.Dimension(300, 200));
+        jPanelCima.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jPanelEsquerdaMouseClicked(evt);
+                jPanelCimaMouseClicked(evt);
             }
         });
 
-        jLabel1.setText("dddddddddddddddd");
-
-        jButton2.setText("jButton2");
-
-        javax.swing.GroupLayout jPanelEsquerdaLayout = new javax.swing.GroupLayout(jPanelEsquerda);
-        jPanelEsquerda.setLayout(jPanelEsquerdaLayout);
-        jPanelEsquerdaLayout.setHorizontalGroup(
-            jPanelEsquerdaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelEsquerdaLayout.createSequentialGroup()
-                .addGap(66, 66, 66)
-                .addComponent(jLabel1)
-                .addContainerGap(222, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelEsquerdaLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton2)
-                .addGap(52, 52, 52))
-        );
-        jPanelEsquerdaLayout.setVerticalGroup(
-            jPanelEsquerdaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelEsquerdaLayout.createSequentialGroup()
-                .addGap(129, 129, 129)
-                .addComponent(jLabel1)
-                .addGap(102, 102, 102)
-                .addComponent(jButton2)
-                .addContainerGap(346, Short.MAX_VALUE))
-        );
-
-        jSplitPane1.setLeftComponent(jPanelEsquerda);
-
-        jPanelDireita.setBackground(new java.awt.Color(40, 40, 40));
-        jPanelDireita.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jPanelDireitaMouseClicked(evt);
-            }
-        });
-
-        jLabel2.setText("Teste dddddddddddd");
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
         jButton1.setText("jButton1");
 
-        javax.swing.GroupLayout jPanelDireitaLayout = new javax.swing.GroupLayout(jPanelDireita);
-        jPanelDireita.setLayout(jPanelDireitaLayout);
-        jPanelDireitaLayout.setHorizontalGroup(
-            jPanelDireitaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDireitaLayout.createSequentialGroup()
-                .addContainerGap(53, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addGap(205, 205, 205))
-            .addGroup(jPanelDireitaLayout.createSequentialGroup()
-                .addGap(69, 69, 69)
+        jButton3.setText("jButton3");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jButton1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jButton3)
+                .addContainerGap(175, Short.MAX_VALUE))
         );
-        jPanelDireitaLayout.setVerticalGroup(
-            jPanelDireitaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelDireitaLayout.createSequentialGroup()
-                .addGap(117, 117, 117)
-                .addComponent(jLabel2)
-                .addGap(119, 119, 119)
-                .addComponent(jButton1)
-                .addContainerGap(341, Short.MAX_VALUE))
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton3))
+                .addContainerGap(281, Short.MAX_VALUE))
         );
 
-        jSplitPane1.setRightComponent(jPanelDireita);
+        javax.swing.GroupLayout jPanelCimaLayout = new javax.swing.GroupLayout(jPanelCima);
+        jPanelCima.setLayout(jPanelCimaLayout);
+        jPanelCimaLayout.setHorizontalGroup(
+            jPanelCimaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelCimaLayout.createSequentialGroup()
+                .addGap(36, 36, 36)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(639, Short.MAX_VALUE))
+        );
+        jPanelCimaLayout.setVerticalGroup(
+            jPanelCimaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelCimaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(52, Short.MAX_VALUE))
+        );
+
+        jSplitPaneInicial.setLeftComponent(jPanelCima);
+
+        jPanelBaixo.setBackground(new java.awt.Color(40, 40, 40));
+        jPanelBaixo.setPreferredSize(new java.awt.Dimension(300, 200));
+        jPanelBaixo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanelBaixoMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 796, Short.MAX_VALUE)
+            .addGap(0, 646, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 613, Short.MAX_VALUE)
+            .addGap(0, 252, Short.MAX_VALUE)
+        );
+
+        jButton2.setText("Iniciar");
+        jButton2.setToolTipText("");
+
+        javax.swing.GroupLayout jPanelBaixoLayout = new javax.swing.GroupLayout(jPanelBaixo);
+        jPanelBaixo.setLayout(jPanelBaixoLayout);
+        jPanelBaixoLayout.setHorizontalGroup(
+            jPanelBaixoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelBaixoLayout.createSequentialGroup()
+                .addGap(79, 79, 79)
+                .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
+                .addGap(42, 42, 42)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(136, Short.MAX_VALUE))
+        );
+        jPanelBaixoLayout.setVerticalGroup(
+            jPanelBaixoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelBaixoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        jButton2.setText(lingua.translate("Iniciar"));
+
+        jSplitPaneInicial.setRightComponent(jPanelBaixo);
+
+        javax.swing.GroupLayout jPanelInicialLayout = new javax.swing.GroupLayout(jPanelInicial);
+        jPanelInicial.setLayout(jPanelInicialLayout);
+        jPanelInicialLayout.setHorizontalGroup(
+            jPanelInicialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jSplitPaneInicial, javax.swing.GroupLayout.DEFAULT_SIZE, 996, Short.MAX_VALUE)
+        );
+        jPanelInicialLayout.setVerticalGroup(
+            jPanelInicialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jSplitPaneInicial, javax.swing.GroupLayout.DEFAULT_SIZE, 696, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
+            .addComponent(jPanelInicial, javax.swing.GroupLayout.DEFAULT_SIZE, 1000, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 617, Short.MAX_VALUE)
+            .addComponent(jPanelInicial, javax.swing.GroupLayout.DEFAULT_SIZE, 700, Short.MAX_VALUE)
         );
-
-        jPanel1.getAccessibleContext().setAccessibleDescription("");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jPanelDireitaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelDireitaMouseClicked
+    private void jPanelBaixoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelBaixoMouseClicked
         Component[] componentes = null;
         if (evt.getClickCount() == 2){
-            componentes = jPanelEsquerda.getComponents();
-            jPanelEsquerda.removeAll();
-            //jPanelEsquerda.repaint();
-            jSplitPane1.setDividerLocation(0);
+            componentes = jPanelCima.getComponents();
+            jPanelCima.removeAll();
+            jSplitPaneInicial.setDividerLocation(1);
         }
         if (componentes != null) {
             int i = 0;
             while (i < componentes.length) {
-                jPanelEsquerda.add(componentes[i]);
+                jPanelCima.add(componentes[i]);
                 i++;
             }
         }
-    }//GEN-LAST:event_jPanelDireitaMouseClicked
+    }//GEN-LAST:event_jPanelBaixoMouseClicked
 
-    private void jPanelEsquerdaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelEsquerdaMouseClicked
-         Component[] componentes = null;
+    private void jPanelCimaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelCimaMouseClicked
+        Component[] componentes = null;
         if (evt.getClickCount() == 2){
-            componentes = jPanelDireita.getComponents();
-            jPanelDireita.removeAll();
-            //jPanelDireita.repaint();
-            jSplitPane1.setDividerLocation(jSplitPane1.getWidth());
+            componentes = jPanelBaixo.getComponents();
+            jPanelBaixo.removeAll();
+            jSplitPaneInicial.setDividerLocation(jSplitPaneInicial.getWidth());         
         }
         if (componentes != null) {
             int i = 0;
             while (i < componentes.length) {
-                jPanelDireita.add(componentes[i]);
+                jPanelBaixo.add(componentes[i]);
                 i++;
             }
         }
-    }//GEN-LAST:event_jPanelEsquerdaMouseClicked
+        
+    }//GEN-LAST:event_jPanelCimaMouseClicked
 
+    public final void caracteristicsJFrame(){
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+        
+        //Listener nas abas do splitPaner
+        jPanelBaixo.addComponentListener(new ComponentListener(){
+            @Override
+            public void componentResized(ComponentEvent e) {
+                int i = 0;
+                while (i < elementosBaixo.size()) {
+                    elementosBaixo.get(i).putBounds(jPanelBaixo.getBounds().getSize().getWidth(), jPanelBaixo.getBounds().getSize().getHeight());
+                    i++;
+                }
+            }
+            @Override
+            public void componentMoved(ComponentEvent e) {}
+            @Override
+            public void componentShown(ComponentEvent e) {}
+            @Override
+            public void componentHidden(ComponentEvent e) {}
+        });
+        jPanelCima.addComponentListener(new ComponentListener(){
+            @Override
+            public void componentResized(ComponentEvent e) {
+                int i = 0;
+                while (i < elementosCima.size()) {
+                    elementosCima.get(i).putBounds(jPanelCima.getBounds().getSize().getWidth(), jPanelCima.getBounds().getSize().getHeight());
+                    i++;
+                }
+            }
+            @Override
+            public void componentMoved(ComponentEvent e) {}
+            @Override
+            public void componentShown(ComponentEvent e) {}
+            @Override
+            public void componentHidden(ComponentEvent e) {}
+        });
+        
+        // para qualquer necessidade windows state listener
+        
+        this.addWindowStateListener((WindowEvent e) -> {
+           
+        });
+        
+        // carcateristica de redimensionamento dos elementos dos painéis do SplitPane
+        Component[] componentes = jPanelBaixo.getComponents();
+        jPanelBaixo.removeAll();
+        double factorX;
+        double factorY;
+        elementosBaixo = new ArrayList<>();
+        if (componentes != null) {
+            int i = 0;
+            while (i < componentes.length) {
+                jPanelBaixo.add(componentes[i]);
+                factorX = jPanelBaixo.getBounds().getSize().getWidth();
+                System.out.println(factorX);
+                factorY = jPanelBaixo.getBounds().getSize().getHeight();
+                elementosBaixo.add(new Element(componentes[i],factorX,factorY,true));
+                i++;
+            }
+        }
+        elementosCima = new ArrayList<>();
+        componentes = jPanelCima.getComponents();
+        jPanelCima.removeAll();
+        if (componentes != null) {
+            int i = 0;
+            while (i < componentes.length) {
+                jPanelCima.add(componentes[i]);
+                factorX = jPanelCima.getBounds().getSize().getWidth();
+                factorY = jPanelCima.getBounds().getSize().getHeight();
+                elementosCima.add(new Element(componentes[i],factorX,factorY,false));
+                i++;
+            }
+        }
+        
+        
+        // Comportamento do duplo clique no separador  
+        BasicSplitPaneUI ui = (BasicSplitPaneUI)jSplitPaneInicial.getUI();
+        BasicSplitPaneDivider divisor = ui.getDivider();
+        divisor.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                if (evt.getClickCount() == 2){
+                     jSplitPaneInicial.setDividerLocation(0.4);
+                }
+            }
+        });
+        
+        // Cursor Mão no separador do SplitPanel 
+        divisor.setCursor(new Cursor(Cursor.HAND_CURSOR));
+    }
+    
     public final void initAnotherComponents(){
         Menu menu = new Menu();
         JMenu menuFicheiro = new JMenu();
-        JMenu jMenu2 = new JMenu();
-        menuFicheiro.setText("Ficheiro");
-        menuFicheiro.setMnemonic('F');
+        JMenu jMenuEditar = new JMenu();
+        menuFicheiro.setText(lingua.translate("Ficheiro"));
+        menuFicheiro.setMnemonic(lingua.translate("Ficheiro").charAt(0));
         menuFicheiro.setCursor(new Cursor(Cursor.HAND_CURSOR));
         JMenuItem itemSair = new JMenuItem();
         itemSair.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, Event.ALT_MASK));
         //itemSair.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, Event.ALT_MASK | Event.CTRL_MASK));
-        itemSair.setText("Sair");
-        itemSair.setMnemonic('S');
+        itemSair.setText(lingua.translate("Sair"));
         itemSair.setCursor(new Cursor(Cursor.HAND_CURSOR));
         itemSair.addActionListener((ActionEvent e) -> {
             sair(e);
         });
-        
         menuFicheiro.add(itemSair);
         menu.add(menuFicheiro);
-        jMenu2.setText("Editar");
-        menu.add(jMenu2);
+        jMenuEditar.setText(lingua.translate("Editar"));
+        jMenuEditar.setMnemonic('E');
+        jMenuEditar.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        menu.add(jMenuEditar);
         this.setJMenuBar(menu);
         
         
+    }
+    
+    public final void initLang(String string){
+        lingua = new Langs.Locale();
+        lingua.setLocale(string);
     }
     
     public void sair(ActionEvent e) {
@@ -270,13 +421,17 @@ public class KeyQuest extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanelDireita;
-    private javax.swing.JPanel jPanelEsquerda;
-    private javax.swing.JSplitPane jSplitPane1;
+    javax.swing.JButton jButton1;
+    javax.swing.JButton jButton2;
+    javax.swing.JButton jButton3;
+    javax.swing.JPanel jPanel1;
+    javax.swing.JPanel jPanel2;
+    javax.swing.JPanel jPanelBaixo;
+    javax.swing.JPanel jPanelCima;
+    javax.swing.JPanel jPanelInicial;
+    javax.swing.JSplitPane jSplitPaneInicial;
     // End of variables declaration//GEN-END:variables
+    private List<Element> elementosBaixo;
+    private List<Element> elementosCima;
+    private Langs.Locale lingua;
 }

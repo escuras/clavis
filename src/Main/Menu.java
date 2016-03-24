@@ -20,7 +20,7 @@ public class Menu extends JMenuBar {
     Color bgcolor;
     
     public Menu(){
-        this.bgcolor = Color.white;
+        this.bgcolor = Color.WHITE;
         
     }
 
@@ -35,7 +35,7 @@ public class Menu extends JMenuBar {
         GradientPaint paint = new GradientPaint(100,200,bgcolor,1000,200,Color.BLACK,true);
         g2d.setColor(bgcolor);
         g2d.setPaint(paint);
-        g2d.fillRect(0, 0, getWidth() - 1, getHeight() - 1);
+        g2d.fillRect(0, 0, getWidth(), getHeight());
 
     }
     

@@ -56,7 +56,7 @@ public class Clavicela {
         Classroom sala1 = new Classroom(m, 1, 50, 80, true);
         System.out.println(sala.toString());
         System.out.println(sala1.toString());
-        langs.Locale cla = new langs.Locale();
+        Langs.Locale cla = new Langs.Locale();
         cla.setLocale("en.EN");
         System.out.println(cla.translate("Professor"));
         java.util.List<String> lista = cla.getlist(3);

@@ -64,7 +64,7 @@ public class WeekDay extends Date {
                 if (aux.length == 2) local = new Locale(aux[0],aux[1]);
                 else local = new Locale("pt","PT");
             } 
-            ResourceBundle sms = ResourceBundle.getBundle("langs.MensagemBundle", local);           
+            ResourceBundle sms = ResourceBundle.getBundle("Langs.MensagemBundle", local);           
             return sms.getString("dia"+this.getDayNumber());
         } else{
             return "";
