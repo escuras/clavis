@@ -112,6 +112,10 @@ public class Material extends TypeOfMaterial {
     public String getDescription() {
         return descricao;
     }
+    
+     public TypeOfMaterial getTypeOfMaterial() {
+        return this;
+    }
 
     /**
      * @param descricao the descricao to set

@@ -5,10 +5,16 @@
  */
 package Langs;
 
+import java.awt.Toolkit;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.Collection;
 import java.util.ResourceBundle;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -22,18 +28,21 @@ public class Locale {
 
     public Locale() {
         try {
-            URL url = this.getClass().getResource("lista.lst");
+            InputStream st = Langs.Locale.class.getResourceAsStream("lista");
             linguas = new java.util.HashSet<>();
-            if (url != null) {
-                java.io.File file = new java.io.File(url.getFile());
-                java.util.Scanner scan = new java.util.Scanner(file);
-                while(scan.hasNext()) {
-                    linguas.add(scan.next());
+            if (st != null) {
+                BufferedReader br = new BufferedReader(new InputStreamReader(st));
+                String line = br.readLine();
+                while (line != null) {
+                    linguas.add(line);
+                    line = br.readLine();
                 }
             }
-        } catch (IOException ex){
+        } catch (Exception ex){
              linguas = new java.util.HashSet<>();
+             linguas.add(java.util.Locale.getDefault().toString());
         }
+        this.locale = "pt_PT";
     }
 
     public void setLocale(String local) {
@@ -41,11 +50,16 @@ public class Locale {
             local = local.replaceAll("[-./|;,:]","_");
             if (this.linguas.contains(local)) {
                 this.locale = local;
+                InputStream st = Langs.Locale.class.getResourceAsStream("lista");
+                for (String g : linguas){
+                    
+                }
             }
         } else {
             this.linguas.add(java.util.Locale.getDefault().toString());
             this.locale = java.util.Locale.getDefault().toString();
         }
+       
     }
     
     public String getLocale(){

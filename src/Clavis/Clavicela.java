@@ -10,7 +10,6 @@ import TimeDate.Time;
 import TimeDate.Date;
 import CSV.ElementsCSV;
 import CSV.HandlingCSV;
-import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.List;
@@ -28,19 +27,18 @@ public class Clavicela {
      */
     public static void main(String[] args) throws ParseException, ParserConfigurationException, SAXException, IOException {
         Date dat = new Date(7, 5, 2018);
-        System.out.println(dat.toString(":"));
+        dat.setLanguage("es-ES");
+        System.out.println(dat.toStringWithMonthWord());
         System.out.println(dat.getDayYear());
         System.out.println(dat.getWeekYear());
         System.out.println(dat.dateAfter(0));
-        System.out.println(dat.isLeap(2016));
         Time time = new Time();
         System.out.println(time.toString(1));
         Time time1 = new Time(23, 59, 59);
         Time time2 = new Time(0, 0, 0);
         System.out.println(time1.compareTime(0, 0, 0));
-        System.out.println(dat.betweenDates(new Date(5, 2, 2016), new Date(1, 1, 2017)));
         WeekDay day = new WeekDay(dat);
-        day.setLocale("fr.FR");
+        day.setLanguage("fr.FR");
         System.out.println(day.toString());
         WeekDay diaa = new WeekDay(1);
         //diaa.setLocale("fr.FR");

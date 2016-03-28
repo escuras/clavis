@@ -22,20 +22,33 @@ public class Teste3 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Date dat = new Date(17,2,2016);
-        Date dat2 = new Date(28,2,2016);
+        int i = 0;
+      
+        TimeDate.Holiday hol = new TimeDate.Holiday(10,06);
+        TimeDate.WeekDay dia = hol.getWeekDay(2020);
+        
+        TimeDate.Date date = new TimeDate.Date(27,3,2016);
+        date = date.dateAfter(2222221);
+        System.out.println(date.toString());
+        date.setLanguage("fr-FR");
         try {
-            WeekDay day = new WeekDay(dat);
-            System.out.println(day.toString());
+            WeekDay daat = new WeekDay(date);
+            daat.setLanguage("fr-FR");
+            System.out.println(daat.perDayName());
         } catch (ParseException ex) {
             Logger.getLogger(Teste3.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        System.out.println(Date.numberOfDaysBetweenDates(dat, dat2));
-        List<Date> datas = Date.DatesBetweenDates(dat, dat2, 3);
-        for (Date date : datas){
-            System.out.println(date.toString());
+       
+        System.out.println(date.dateBefore(1736054));
+       
+        TimeDate.Holiday holoo = new TimeDate.Holiday();
+        TimeDate.Date [] dat = holoo.getMobileHolidays(-2078);
+        if (dat.length > 0) {
+            System.out.println("maior que 0");
+        } else {
+            System.out.println("zero");
         }
+        
     }
     
 }

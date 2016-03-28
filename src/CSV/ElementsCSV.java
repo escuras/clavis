@@ -10,7 +10,7 @@ package CSV;
  *
  * @author toze
  */
-public class ElementsCSV {
+public class ElementsCSV  {
     private int diasemana;
     private int horaIni;
     private int minutoIni;
@@ -63,7 +63,7 @@ public class ElementsCSV {
         this.cddocente = csv.getCdTeacher();
         this.nomedisciplina = csv.getSubjectName();
         this.cddisciplina = csv.getCdSubject();
-        this.sala = csv.getClassRoom();
+        this.sala = csv.getClassDescription();
         this.cdsala = csv.getCdClassRoom();
     }
    
@@ -198,14 +198,14 @@ public class ElementsCSV {
     /**
      * @return the sala
      */
-    public String getClassRoom() {
+    public String getClassDescription() {
         return sala;
     }
 
     /**
      * @param sala the sala to set
      */
-    public void setClassRoom(String sala) {
+    public void setClassDescription(String sala) {
         this.sala = sala;
     }
 

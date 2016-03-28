@@ -16,7 +16,7 @@ import javax.swing.JMenuBar;
  * @author toze
  */
 public class Menu extends JMenuBar {
-    
+    private static final long serialVersionUID =1111;
     Color bgcolor;
     
     public Menu(){

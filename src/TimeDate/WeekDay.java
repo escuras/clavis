@@ -9,8 +9,6 @@ package TimeDate;
 
 
 import java.text.ParseException;
-import java.util.Locale;
-import java.util.ResourceBundle;
 
 /**
  *
@@ -19,7 +17,7 @@ import java.util.ResourceBundle;
 public class WeekDay extends Date {
     private int dia;
     private String extenso;
-    private String locale;
+    private Langs.Locale locale;
     
     public WeekDay(int dia){
         if ((dia > 0)&&(dia < 8)) 
@@ -29,6 +27,7 @@ public class WeekDay extends Date {
             this.dia = -1;
         }
         extenso= this.calcDayName();
+        locale = new Langs.Locale();
     }
     
     
@@ -57,15 +56,8 @@ public class WeekDay extends Date {
     
     private String calcDayName(){
         if (this.dia != -1) {
-            Locale local;
-            if (this.locale == null) local = new Locale("pt","PT");
-            else {
-                String [] aux = this.locale.split("[-./|;,:_]");
-                if (aux.length == 2) local = new Locale(aux[0],aux[1]);
-                else local = new Locale("pt","PT");
-            } 
-            ResourceBundle sms = ResourceBundle.getBundle("Langs.MensagemBundle", local);           
-            return sms.getString("dia"+this.getDayNumber());
+            if (locale == null) locale = new Langs.Locale();
+            return locale.translate("dia"+this.getDayNumber());
         } else{
             return "";
         }
@@ -89,14 +81,24 @@ public class WeekDay extends Date {
     /**
      * @return the locale
      */
-    public String getLocale() {
+    @Override
+    public Langs.Locale getLanguage() {
         return locale;
     }
 
     /**
      * @param locale the locale to set
      */
-    public void setLocale(String locale) {
+    @Override
+    public void setLanguage(String locale) {
+        if (this.locale == null) this.locale = new Langs.Locale();
+        this.locale.setLocale(locale);
+        this.extenso = this.calcDayName();    
+    }
+    
+    @Override
+    public void setLanguage(Langs.Locale locale) {
+        if (this.locale == null) this.locale = new Langs.Locale();
         this.locale = locale;
         this.extenso = this.calcDayName();    
     }

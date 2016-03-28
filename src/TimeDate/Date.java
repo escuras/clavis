@@ -18,6 +18,7 @@ public class Date {
     private int ano;
     private final int diasdoano;
     private final int semanasdoano;
+    private Langs.Locale locale;
 
     public Date() {
         DateTime datr = new DateTime();
@@ -26,9 +27,10 @@ public class Date {
         dia = datr.getDayOfMonth();
         diasdoano = datr.getDayOfYear();
         semanasdoano = datr.getWeekyear();
+        locale = new Langs.Locale();
     }
-    
-     public Date(int dias) {
+
+    public Date(int dias) {
         DateTime datr = new DateTime();
         ano = datr.getYear();
         mes = datr.getMonthOfYear();
@@ -39,6 +41,7 @@ public class Date {
         dia = aux.getDay();
         diasdoano = aux.getDayYear();
         semanasdoano = aux.getWeekYear();
+        locale = new Langs.Locale();
     }
 
     public Date(int dia, int mes, int ano) {
@@ -64,6 +67,7 @@ public class Date {
             this.diasdoano = -1;
             this.semanasdoano = -1;
         }
+        this.locale = new Langs.Locale();
     }
 
     public Date(Date date) {
@@ -72,6 +76,7 @@ public class Date {
         this.dia = date.dia;
         this.diasdoano = date.getDayOfTheYear();
         this.semanasdoano = date.getWeekOfTheYear();
+        this.locale = new Langs.Locale();
     }
 
     private boolean validateMonthDays(int dia, int mes, int ano) {
@@ -167,14 +172,26 @@ public class Date {
             smes = "" + this.mes;
         }
         String sano;
-        if (ano < 10) {
-            sano = "000" + this.ano;
-        } else if (ano < 100) {
-            sano = "00" + this.ano;
-        } else if (ano < 1000) {
-            sano = "0" + this.ano;
+        if (ano >= 0) {
+            if (ano < 10) {
+                sano = "000" + this.ano;
+            } else if (ano < 100) {
+                sano = "00" + this.ano;
+            } else if (ano < 1000) {
+                sano = "0" + this.ano;
+            } else {
+                sano = "" + this.ano;
+            }
         } else {
-            sano = "" + this.ano;
+            if (ano > -10) {
+                sano = "-000" + -this.ano;
+            } else if (ano > -100) {
+                sano = "-00" + -this.ano;
+            } else if (ano > -1000) {
+                sano = "-0" + -this.ano;
+            } else {
+                sano = "" + this.ano;
+            }
         }
         return sdia + "/" + smes + "/" + sano;
     }
@@ -193,16 +210,61 @@ public class Date {
             smes = "" + this.mes;
         }
         String sano;
-        if (ano < 10) {
-            sano = "000" + this.ano;
-        } else if (ano < 100) {
-            sano = "00" + this.ano;
-        } else if (ano < 1000) {
-            sano = "0" + this.ano;
+        if (ano >= 0) {
+            if (ano < 10) {
+                sano = "000" + this.ano;
+            } else if (ano < 100) {
+                sano = "00" + this.ano;
+            } else if (ano < 1000) {
+                sano = "0" + this.ano;
+            } else {
+                sano = "" + this.ano;
+            }
         } else {
-            sano = "" + this.ano;
+            if (ano > -10) {
+                sano = "-000" + -this.ano;
+            } else if (ano > -100) {
+                sano = "-00" + -this.ano;
+            } else if (ano > -1000) {
+                sano = "-0" + -this.ano;
+            } else {
+                sano = "" + this.ano;
+            }
         }
         return sdia + simbolo + smes + simbolo + sano;
+    }
+
+    public String toStringWithMonthWord() {
+        String sdia;
+        if (dia < 10) {
+            sdia = "0" + this.dia;
+        } else {
+            sdia = "" + this.dia;
+        }
+        String sano;
+        if (ano > 0) {
+            if (ano < 10) {
+                sano = "000" + this.ano;
+            } else if (ano < 100) {
+                sano = "00" + this.ano;
+            } else if (ano < 1000) {
+                sano = "0" + this.ano;
+            } else {
+                sano = "" + this.ano;
+            }
+        } else {
+            if (ano > -10) {
+                sano = "-000" + -this.ano;
+            } else if (ano > -100) {
+                sano = "-00" + -this.ano;
+            } else if (ano > -1000) {
+                sano = "-0" + -this.ano;
+            } else {
+                sano = "" + this.ano;
+            }
+        }
+        String[] meses = {"Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"};
+        return sdia + " " + locale.translate(meses[this.mes - 1]) + " " + sano;
     }
 
     public boolean betweenDates(Date date, Date date2) {
@@ -273,8 +335,6 @@ public class Date {
                             dauxiliar -= 366;
                             year = this.ano + i;
                             i++;
-                        } else {
-
                         }
                     } else {
                         if (dauxiliar > 365) {
@@ -293,11 +353,9 @@ public class Date {
                     meses[2] = 29;
                 }
                 for (int j = 1; j < 13; j++) {
+                    month = j;
                     if (dauxiliar > meses[j]) {
                         dauxiliar -= meses[j];
-                        //System.out.println(j + " Meses" + meses[j]);
-                        //System.out.println("dias: " + dauxiliar);
-                        month = j + 1;
                     } else {
                         day = dauxiliar;
                         break;
@@ -311,7 +369,97 @@ public class Date {
         } else {
             return new Date(this.dia, this.mes, this.ano);
         }
+    }
 
+    public Date dateBefore(int dias) {
+        int year = this.ano;
+        int month = this.mes;
+        int day = this.dia;
+        if (dias > 0) {
+            if ((this.dia - dias) < 0) {
+                int[] meses = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+                int dauxiliar = this.getDayOfTheYear() - dias;
+                if (dauxiliar > 0) {
+                    return new Date(1, 1, this.ano).dateAfter(dauxiliar);
+                } else {
+                    int anoauxiliar;
+                    if (this.isLeap(this.ano - 1)) {
+                        anoauxiliar = 366;
+                    } else {
+                        anoauxiliar = 365;
+                    }
+                    year = this.ano - 1;
+                    int i = 2;
+                    while (dauxiliar < -anoauxiliar) {
+                        if (this.isLeap(year)) {
+                            if (dauxiliar < -366) {
+                                dauxiliar += 366;
+                                year = this.ano - i;
+                                i++;
+                            }
+                        } else {
+                            if (dauxiliar < -365) {
+                                dauxiliar += 365;
+                                year = this.ano - i;
+                                i++;
+                            }
+                        }
+                        if (this.isLeap(this.ano - i)) {
+                            anoauxiliar = 366;
+                        } else {
+                            anoauxiliar = 365;
+                        }
+                    }
+                    if (this.isLeap(year)) {
+                        meses[2] = 29;
+                    }
+                    if(year > 0) {
+                        System.out.println("fff");
+                        for (int j = 12; j >= 1; j--) {
+                            month = j;
+                            if (dauxiliar <= -meses[j]) {
+                                dauxiliar += meses[j];
+                                System.out.println("if"+dauxiliar);
+                                if (dia == 0) dia = 1;
+                            } else {
+                                day = meses[j] + dauxiliar;
+                                System.out.println("else"+day);
+                                break;
+                            }
+                            if ((dauxiliar == 0)&&(month == 1)&&(year == 1)) {day = 1;year = 0;}
+                            if ((dauxiliar == -1)&&(month == 1)&&(year == 1)) {day = 2;year = 0;}
+                        } 
+                    } else {
+                        System.out.println("vvv");
+                        dauxiliar = -(dauxiliar-1);
+                        for (int j = 1; j <= 12; j++) {
+                            month = j;
+                            if (dauxiliar > meses[j]) {
+                                dauxiliar -= meses[j];
+                            } else {
+                                day = dauxiliar;
+                                break;
+                            }
+                        } 
+                    }
+                    if (year <= 0) {
+                        year = year - 1;
+                    }
+                    if (day < 0) {
+                       day = -day;
+                    }
+                    if (day == 0) day = 31;
+                    System.out.println("day  :" + day);
+                    System.out.println("month  :" + month);
+                    System.out.println("year  :" + year);
+                    return new Date(day, month, year);
+                }
+            } else {
+                return new Date(this.dia - dias, this.mes, this.ano);
+            }
+        } else {
+            return new Date(this.dia, this.mes, this.ano);
+        }
     }
 
     private int getDayOfTheYear() {
@@ -348,14 +496,17 @@ public class Date {
         }
         return conta;
     }
-    
-    public static int numberOfDaysBetweenDates(Date a, Date b){
+
+    public static int numberOfDaysBetweenDates(Date a, Date b) {
         int dias = 0;
-        if ((b.getYear() - a.getYear()) > 0 ){
+        if ((b.getYear() - a.getYear()) > 0) {
             int aux = a.getYear();
-            while (aux < b.getYear()){
-                if (a.isLeap(aux)) dias += 366;
-                else dias +=365;
+            while (aux < b.getYear()) {
+                if (a.isLeap(aux)) {
+                    dias += 366;
+                } else {
+                    dias += 365;
+                }
                 aux++;
             }
             dias += b.getDayYear();
@@ -363,11 +514,12 @@ public class Date {
             return dias;
         } else {
             dias = b.getDayYear() - a.getDayYear();
-            if (dias > 0) return dias;
-            else return 0;
+            if (dias > 0) {
+                return dias;
+            } else {
+                return 0;
+            }
         }
-        
-        
     }
 
     public int getWeekYear() {
@@ -377,34 +529,64 @@ public class Date {
     public int getDayYear() {
         return this.diasdoano;
     }
-    
-    public boolean isValid(){
-        return (!(this.dia == -1)||!(this.mes == -1)||!(this.ano == -1));
+
+    public boolean isValid() {
+        return (!(this.dia == -1) || !(this.mes == -1) || !(this.ano == -1));
     }
-    
-    public static java.util.List<Date> DatesBetweenDates(Date a, Date b, int diaw){
-        java.util.List<Date> datas = new java.util.ArrayList<>(); 
+
+    public static java.util.List<Date> DatesBetweenDates(Date a, Date b, int diaw) {
+        java.util.List<Date> datas = new java.util.ArrayList<>();
         int dias;
-        if ((dias = numberOfDaysBetweenDates(a,b)) > 0) {
+        if ((dias = numberOfDaysBetweenDates(a, b)) >= 0) {
             int aux = 0;
             int diaa = WeekDay.getDayWeek(a);
-            if (diaa < diaw) diaa = (diaw -diaa); 
-            else if (diaa == diaw) diaa = 0;
-            else diaa = (7 - diaa) + diaw;
-            while (diaa <= dias){
-                for (int i=1; i <= 7; i++){
-                    if (diaw == i){
+            if (diaa < diaw) {
+                diaa = (diaw - diaa);
+            } else if (diaa == diaw) {
+                diaa = 0;
+            } else {
+                diaa = (7 - diaa) + diaw;
+            }
+            while (diaa <= dias) {
+                for (int i = 1; i <= 7; i++) {
+                    if (diaw == i) {
                         Date date = a.dateAfter(diaa);
                         datas.add(date);
                         break;
                     }
-                } 
-                diaa += 7; 
+                }
+                diaa += 7;
             }
         }
         return datas;
-        
+
     }
-    
-    
+
+    /**
+     * @return the locale
+     */
+    public Langs.Locale getLanguage() {
+        return locale;
+    }
+
+    /**
+     * @param local
+     */
+    public void setLanguage(String local) {
+        if (this.locale == null) {
+            this.locale = new Langs.Locale();
+        }
+        this.locale.setLocale(local);
+    }
+
+    /**
+     * @param locale
+     */
+    public void setLanguage(Langs.Locale locale) {
+        if (this.locale == null) {
+            this.locale = new Langs.Locale();
+        }
+        this.locale = locale;
+    }
+
 }

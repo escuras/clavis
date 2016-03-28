@@ -103,7 +103,7 @@ public class Teste extends javax.swing.JFrame {
 
     private void jButton1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MousePressed
       
-        BufferedImage imagem = (BufferedImage) image;
+        BufferedImage imagem = image;
         imagem = FileIOAux.ImageAux.makeDarker(imagem, 90);
         imagem = FileIOAux.ImageAux.makeRoundedCorner(imagem, 180);
         if (imagem != null) {
@@ -114,7 +114,7 @@ public class Teste extends javax.swing.JFrame {
 
     private void jButton1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseReleased
         
-        BufferedImage imagem = (BufferedImage) image;
+        BufferedImage imagem = image;
         //imagem = FileIOAux.ImageAux.makeWhiter(imagem, 30);
         imagem = FileIOAux.ImageAux.makeRoundedCorner(imagem, 180);
         if (imagem != null) {

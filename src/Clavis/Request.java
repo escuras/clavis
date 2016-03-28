@@ -219,7 +219,7 @@ public class Request implements Comparable<Request> {
 
     @Override
     public int compareTo(Request o) {
-        int valor = 0;
+        int valor;
         if((valor = Integer.compare(this.getDate().getYear(), o.getDate().getYear())) == 0){
             if ((valor = Integer.compare(this.getDate().getMonth(), o.getDate().getMonth())) == 0) {
                 if ((valor = Integer.compare(this.getDate().getDay(), o.getDate().getDay())) == 0) {
