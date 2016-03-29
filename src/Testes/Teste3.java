@@ -42,7 +42,7 @@ public class Teste3 {
         System.out.println(date.dateBefore(1736054));
        
         TimeDate.Holiday holoo = new TimeDate.Holiday();
-        TimeDate.Date [] dat = holoo.getMobileHolidays(-2078);
+        TimeDate.Holiday [] dat = holoo.getMobileHolidays(2078);
         if (dat.length > 0) {
             System.out.println("maior que 0");
         } else {

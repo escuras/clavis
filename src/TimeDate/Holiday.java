@@ -5,6 +5,7 @@
  */
 package TimeDate;
 
+import Clavis.Request;
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -13,15 +14,12 @@ import java.util.logging.Logger;
  *
  * @author toze
  */
-public class Holiday {
-
+public class Holiday implements Comparable<Holiday> {
+    private static final long serialVersionUID =1L;
     private int mes;
     private int dia;
     private Langs.Locale locale;
     private static Date pascoa;
-    private static Date sexta_feira_santa;
-    private static Date corpo_de_Deus;
-    private static Date carnaval;
 
     public Holiday() {
         mes = 0;
@@ -126,20 +124,26 @@ public class Holiday {
         return di;
     }
 
-    public static Date[] getMobileHolidays(int ano) {
+    public static Holiday[] getMobileHolidays(int ano) {
         if ((pascoa != null) && (pascoa.isValid())) {
-            corpo_de_Deus = pascoa.dateAfter(60);
-            carnaval = pascoa.dateBefore(48);
-            sexta_feira_santa = pascoa.dateBefore(2);
-            Date[] datas = {carnaval, pascoa, sexta_feira_santa, corpo_de_Deus};
-            return datas;
+            Date corpo_de_Deus = pascoa.dateAfter(60);
+            Date carnaval = pascoa.dateBefore(48);
+            Date sexta_feira_santa = pascoa.dateBefore(2);
+            Holiday[] holidays = {new Holiday(carnaval.getDay(),carnaval.getMonth()),
+            new Holiday(sexta_feira_santa.getDay(),sexta_feira_santa.getMonth()),
+            new Holiday(pascoa.getDay(),pascoa.getMonth()),
+            new Holiday(corpo_de_Deus.getDay(),corpo_de_Deus.getMonth())};
+            return holidays;
         } else {
             calcEaster(ano);
-            corpo_de_Deus = pascoa.dateAfter(60);
-            carnaval = pascoa.dateBefore(48);
-            sexta_feira_santa = pascoa.dateBefore(2);
-            Date[] datas = {carnaval, pascoa, sexta_feira_santa, corpo_de_Deus};
-            return datas;
+            Date corpo_de_Deus = pascoa.dateAfter(60);
+            Date carnaval = pascoa.dateBefore(48);
+            Date sexta_feira_santa = pascoa.dateBefore(2);
+            Holiday[] holidays2 = {new Holiday(carnaval.getDay(),carnaval.getMonth()),
+            new Holiday(sexta_feira_santa.getDay(),sexta_feira_santa.getMonth()),
+            new Holiday(pascoa.getDay(),pascoa.getMonth()),
+            new Holiday(corpo_de_Deus.getDay(),corpo_de_Deus.getMonth())};
+            return holidays2;
         }
     }
 
@@ -153,30 +157,36 @@ public class Holiday {
 
     }
 
-    public static Date getGoodFriday(int ano) {
+    public static Holiday getGoodFriday(int ano) {
         if ((pascoa != null) && (pascoa.isValid())) {
-            return pascoa.dateAfter(2);
+            Date sexta_feira_santa = pascoa.dateBefore(2);
+            return new Holiday(sexta_feira_santa.getDay(),sexta_feira_santa.getMonth());
         } else {
             calcEaster(ano);
-            return pascoa.dateAfter(2);
+            Date sexta_feira_santa = pascoa.dateBefore(2);
+            return new Holiday(sexta_feira_santa.getDay(),sexta_feira_santa.getMonth());
         }
     }
 
-    public static Date getCorpusChristi(int ano) {
+    public static Holiday getCorpusChristi(int ano) {
         if ((pascoa != null) && (pascoa.isValid())) {
-            return pascoa.dateAfter(60);
+            Date corpo_de_Deus = pascoa.dateAfter(60);
+            return new Holiday(corpo_de_Deus.getDay(),corpo_de_Deus.getMonth());
         } else {
             calcEaster(ano);
-            return pascoa.dateAfter(60);
+            Date corpo_de_Deus = pascoa.dateAfter(60);
+            return new Holiday(corpo_de_Deus.getDay(),corpo_de_Deus.getMonth());
         }
     }
 
-    public static Date getCarnaval(int ano) {
+    public static Holiday getCarnaval(int ano) {
         if ((pascoa != null) && (pascoa.isValid())) {
-            return pascoa.dateBefore(48);
+            Date carnaval = pascoa.dateBefore(48);
+            return new Holiday(carnaval.getDay(),carnaval.getMonth());
         } else {
             calcEaster(ano);
-            return pascoa.dateBefore(48);
+            Date carnaval = pascoa.dateBefore(48);
+            return new Holiday(carnaval.getDay(),carnaval.getMonth());
         }
     }
 
@@ -217,5 +227,14 @@ public class Holiday {
                 pascoa = new Date(p, 3, ano);
             }
         }
+    }
+
+    @Override
+    public int compareTo(Holiday o) {
+        int valor;
+        if((valor = Integer.compare(this.getMonth(), o.getMonth())) == 0 ){
+            valor = Integer.compare(this.getDay(), o.getDay());
+        }
+        return valor;
     }
 }

@@ -24,10 +24,10 @@ public class RequestList {
     private Clavis.Function funcao;
     private TimeDate.Date date1;
     private TimeDate.Date date2;
-    private TimeDate.Holiday[] feriados;
+    private HolidaysList feriados;
     private Set<Clavis.Request> requests;
     
-    public RequestList(String bd, String csv, Clavis.TypeOfMaterial material, Clavis.Function funcao, TimeDate.Date date1, TimeDate.Date date2, TimeDate.Holiday[] feriados) {
+    public RequestList(String bd, String csv, Clavis.TypeOfMaterial material, Clavis.Function funcao, TimeDate.Date date1, TimeDate.Date date2, HolidaysList feriados) {
         this.bd = bd;
         this.csv = csv;
         this.material = material;
@@ -49,7 +49,7 @@ public class RequestList {
         this.feriados = req.feriados;
     }
     
-    public void reMake(TimeDate.Date date1, TimeDate.Date date2, TimeDate.Holiday[] Holdays){
+    public void reMake(TimeDate.Date date1, TimeDate.Date date2, HolidaysList Holdays){
         this.date1 = date1;
         this.date2 = date2;
         HandlingCSV han = new HandlingCSV(csv);
@@ -65,12 +65,10 @@ public class RequestList {
                     List<Date> datass = Date.DatesBetweenDates(this.date1, this.date2, aux.getWeekDay().getDayNumber());
                     if (datass.size() > 0) {
                         for (int j=0; j< datass.size();j++) { 
-                            k = 0;
-                            while (k < this.getHolidays().length) {
-                                if ((datass.get(j).getDay() == this.getHolidays()[k].getDay())&&(datass.get(j).getMonth() == this.getHolidays()[k].getMonth())) {
+                            for (TimeDate.Holiday h: this.feriados.getHolidays()){
+                                if ((datass.get(j).getDay() == h.getDay())&&(datass.get(j).getMonth() == h.getMonth())) {
                                     bauxiliar = true;
                                 }
-                                k++;
                             }
                             if (!bauxiliar) this.requests.add(aux.getRequest(datass.get(j)));
                             bauxiliar = false;
@@ -94,13 +92,11 @@ public class RequestList {
                     ObjectCSV aux = new ObjectCSV(elementos.get(i),this.funcao,this.material);
                     List<Date> datass = Date.DatesBetweenDates(this.date1, this.date2, aux.getWeekDay().getDayNumber());
                     if (datass.size() > 0) {
-                        for (int j=0; j< datass.size();j++) {  
-                            k = 0;
-                            while (k < this.getHolidays().length) {
-                                if ((datass.get(j).getDay() == this.getHolidays()[k].getDay())&&(datass.get(j).getMonth() == this.getHolidays()[k].getMonth())) {
+                        for (int j=0; j< datass.size();j++) { 
+                            for (TimeDate.Holiday h: this.feriados.getHolidays()){
+                                if ((datass.get(j).getDay() == h.getDay())&&(datass.get(j).getMonth() == h.getMonth())) {
                                     bauxiliar = true;
                                 }
-                                k++;
                             }
                             if (!bauxiliar) this.requests.add(aux.getRequest(datass.get(j)));
                             bauxiliar = false;
@@ -205,14 +201,14 @@ public class RequestList {
     /**
      * @return the feriados
      */
-    public TimeDate.Holiday[] getHolidays() {
+    public HolidaysList getHolidays() {
         return feriados;
     }
 
     /**
      * @param feriados the feriados to set
      */
-    public void setHolidays(TimeDate.Holiday[] feriados) {
+    public void setHolidays(HolidaysList feriados) {
         this.feriados = feriados;
     }
     

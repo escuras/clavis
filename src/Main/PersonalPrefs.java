@@ -13,7 +13,7 @@ import java.util.prefs.Preferences;
  */
 public class PersonalPrefs extends KeyQuest {
 
-    private static final long serialVersionUID =1111;
+    private static final long serialVersionUID =1L;
     public PersonalPrefs(){
         super();
     }

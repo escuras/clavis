@@ -5,9 +5,6 @@
  */
 package Main;
 
-import Clavis.Function;
-import Clavis.TypeOfMaterial;
-import TimeDate.Date;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -92,17 +89,18 @@ public class ButtonListRequest{
         if (!this.bLista.isEmpty()) {
             pane.setAutoscrolls(true);
             pane.setLayout(new BorderLayout());
-            pane.setLayout(new BoxLayout(pane, BoxLayout.Y_AXIS));
-            pane.setBorder(new EmptyBorder(30, 30, 20, 30));
+            pane.setLayout(new BoxLayout(pane,BoxLayout.Y_AXIS));
+            pane.setBorder(new EmptyBorder(0, 30, 20, 30));
             pane.setMinimumSize(new Dimension(0, 0));
             pane.setMaximumSize(new Dimension(Integer.MAX_VALUE,Integer.MAX_VALUE));
-            pane.setPreferredSize(new Dimension(100, 100));
-            pane.setBackground(Color.red);
+            pane.setPreferredSize(new Dimension(100, 300));
+            pane.setMaximumSize(new Dimension(120000,120000));
+            pane.setBackground(Color.WHITE);
             aux.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
             for (javax.swing.JButton bt : bLista){
                 pane.add(bt);
-                 System.out.println(bt.getText());
             }
+           
         }
         aux.setViewportView(pane);
         return aux;
