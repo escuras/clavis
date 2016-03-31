@@ -4,11 +4,16 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.RoundRectangle2D;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 import javax.imageio.ImageReader;
 import javax.imageio.stream.ImageInputStream;
+import javax.swing.UIManager;
+import javax.swing.filechooser.FileFilter;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -22,9 +27,26 @@ import javax.imageio.stream.ImageInputStream;
 public class ImageAux {
 
     public static String extensao;
-    
-    public static BufferedImage getImageFromFile(java.awt.Component comp) {
+
+    public static BufferedImage getImageFromFileChooser(java.awt.Component comp, Langs.Locale locale) {
+        String titulo = setUILanguage(locale);
         JFileChooser fimagem = new JFileChooser();
+        fimagem.setDialogTitle(titulo);
+        fimagem.setFileFilter(new FileFilter() {
+            @Override
+            public boolean accept(File f) {
+                if (f.isDirectory()) {
+                    return true;
+                }
+                final String name = f.getName();
+                return name.endsWith(".png") || name.endsWith(".jpg");
+            }
+
+            @Override
+            public String getDescription() {
+                return "*.png,*.jpg";
+            }
+        });
         fimagem.getLocation();
         int retVal = fimagem.showOpenDialog(comp);
         BufferedImage bimagem = null;
@@ -37,6 +59,18 @@ public class ImageAux {
                 }
             } catch (IOException ex) {
             }
+        }
+        return bimagem;
+    }
+
+    public static BufferedImage getImageFromFile(java.io.File file) {
+        BufferedImage bimagem = null;
+        extensao = verifyExtension(file);
+        try {
+            if (validateExtension(extensao)) {
+                bimagem = ImageIO.read(file);
+            }
+        } catch (IOException ex) {
         }
         return bimagem;
     }
@@ -55,7 +89,6 @@ public class ImageAux {
         }
         return extensao;
     }
-  
 
     private static boolean validateExtension(String file) {
 
@@ -107,7 +140,7 @@ public class ImageAux {
         }
         return img;
     }
-    
+
     public static BufferedImage makeWhiter(BufferedImage imagem, int valor) {
         BufferedImage img = null;
         if (imagem != null) {
@@ -119,23 +152,29 @@ public class ImageAux {
             } else {
                 img = new BufferedImage(largura, altura, BufferedImage.TYPE_INT_RGB);
             }
-            for (int x=0; x < largura; x++){
-                for (int y=0; y < altura; y++){
-                    Color cor  = new Color(imagem.getRGB(x,y));
+            for (int x = 0; x < largura; x++) {
+                for (int y = 0; y < altura; y++) {
+                    Color cor = new Color(imagem.getRGB(x, y));
                     int red = cor.getRed() + valor;
-                    if (red > 255) red = 255;
+                    if (red > 255) {
+                        red = 255;
+                    }
                     int green = cor.getGreen() + valor;
-                    if (green > 255) green = 255;
+                    if (green > 255) {
+                        green = 255;
+                    }
                     int blue = cor.getBlue() + valor;
-                    if (blue > 255) blue = 255;
-		    Color au = new Color(red,green,blue);
+                    if (blue > 255) {
+                        blue = 255;
+                    }
+                    Color au = new Color(red, green, blue);
                     img.setRGB(x, y, au.getRGB());
-		}
+                }
             }
         }
         return img;
     }
-    
+
     public static BufferedImage makeDarker(BufferedImage imagem, int valor) {
         BufferedImage img = null;
         if (imagem != null) {
@@ -147,24 +186,29 @@ public class ImageAux {
             } else {
                 img = new BufferedImage(largura, altura, BufferedImage.TYPE_INT_RGB);
             }
-            for (int x=0; x < largura; x++){
-                for (int y=0; y < altura; y++){
-                    Color cor  = new Color(imagem.getRGB(x,y));
+            for (int x = 0; x < largura; x++) {
+                for (int y = 0; y < altura; y++) {
+                    Color cor = new Color(imagem.getRGB(x, y));
                     int red = cor.getRed() - valor;
-                    if (red < 0) red = 0;
+                    if (red < 0) {
+                        red = 0;
+                    }
                     int green = cor.getGreen() - valor;
-                    if (green < 0) green = 0;
+                    if (green < 0) {
+                        green = 0;
+                    }
                     int blue = cor.getBlue() - valor;
-                    if (blue < 0) blue = 0;
-		    Color au = new Color(red,green,blue);
+                    if (blue < 0) {
+                        blue = 0;
+                    }
+                    Color au = new Color(red, green, blue);
                     img.setRGB(x, y, au.getRGB());
-		}
+                }
             }
         }
         return img;
     }
-    
-    
+
     public static BufferedImage makeRoundedCorner(BufferedImage image, int cornerRadius) {
         int largura = image.getWidth();
         int altura = image.getHeight();
@@ -176,9 +220,88 @@ public class ImageAux {
         g2.setComposite(java.awt.AlphaComposite.SrcAtop);
         g2.drawImage(image, 0, 0, null);
         g2.dispose();
-    return output;
-}
-    
-    
+        return output;
+    }
+
+    private static String setUILanguage(Langs.Locale locale) {
+        ResourceBundle rb; 
+        String[] im = locale.getLocale().split("_");
+        try {
+            rb = ResourceBundle.getBundle("Langs.FileChooser", new Locale(im[0],im[1]));
+            System.out.println(rb.getLocale().toString());
+        } catch (Exception e) {
+            locale = new Langs.Locale();
+            rb = ResourceBundle.getBundle("Langs.FileChooser", new Locale("pt","PT"));
+            System.out.println("erro");
+        }
+        String titulo = rb.getString("EscolherImagem");
+        UIManager.put("FileChooser.lookInLabelText", rb.getString("lookInLabelText"));
+        UIManager.put("FileChooser.filesOfTypeLabelText",rb.getString("filesOfTypeLabelText"));
+        UIManager.put("FileChooser.upFolderToolTipText",rb.getString("upFolderToolTipText"));
+        /*
+        
+         FileChooser.fileNameLabelText
+         FileChooser.homeFolderToolTipText
+         FileChooser.newFolderToolTipText
+         FileChooser.listViewButtonToolTipTextlist
+         FileChooser.detailsViewButtonToolTipText
+         FileChooser.saveButtonText=Save
+         FileChooser.openButtonText=Open
+         FileChooser.cancelButtonText=Cancel
+         FileChooser.updateButtonText=Update
+         FileChooser.helpButtonText=Help
+         FileChooser.saveButtonToolTipText=Save
+         FileChooser.openButtonToolTipText=Open
+         FileChooser.cancelButtonToolTipText=Cancel
+         FileChooser.updateButtonToolTipText=Update
+         FileChooser.helpButtonToolTipText=Help
+
+         Almost all Swing widgets can be customize this way. You can
+         examine the Swing sources to get these values or check
+         http://www.gargoylesoftware.com/papers/plafdiff.html for
+         a list of them.
+        
+        
+        FileChooser.lookInLabelText",
+"FileChooser.lookInLabelMnemonic",
+"FileChooser.fileNameLabelText",
+"FileChooser.fileNameLabelMnemonic",
+"FileChooser.filesOfTypeLabelText",
+"FileChooser.filesOfTypeLabelMnemonic",
+"FileChooser.upFolderToolTipText",
+"FileChooser.upFolderAccessibleName",
+"FileChooser.homeFolderToolTipText",
+"FileChooser.homeFolderAccessibleName",
+"FileChooser.newFolderToolTipText",
+"FileChooser.newFolderAccessibleName",
+"FileChooser.listViewButtonToolTipText",
+"FileChooser.listViewButtonAccessibleName",
+"FileChooser.detailsViewButtonToolTipText",
+"FileChooser.detailsViewButtonAccessibleName",
+"FileChooser.cancelButtonText",
+"FileChooser.cancelButtonMnemonic",
+"FileChooser.cancelButtonToolTipText",
+"FileChooser.openButtonText",
+"FileChooser.openButtonMnemonic",
+"FileChooser.openButtonToolTipText",
+"FileChooser.saveButtonText",
+"FileChooser.saveButtonMnemonic",
+"FileChooser.saveButtonToolTipText",
+"FileChooser.acceptAllFileFilterText",
+"FileChooser.openDialogTitleText",
+"FileChooser.saveDialogTitleText",
+"FileChooser.homeFolderToolTipText",
+"FileChooser.newFolderAccessibleName",
+"FileChooser.viewMenuLabelText",
+"FileChooser.refreshActionLabelText",
+"FileChooser.newFolderActionLabelText",
+"FileChooser.goupFolderActionLabelText",
+"FileChooser.listViewActionLabelText",
+"FileChooser.detailsViewActionLabelText",
+"FileChooser.foldersLabelText",
+         */
+        return titulo;
+
+    }
 
 }

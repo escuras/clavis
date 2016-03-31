@@ -80,6 +80,20 @@ public class Request implements Comparable<Request> {
         this.completo = false;
     }
     
+    public Request(Request req){
+        this.date = req.getDate();
+        this.dia = req.getWeekDay();
+        this.tinicio = req.getTimeBegin();
+        this.tfim = req.getTimeEnd();
+        this.pessoa = req.getPerson();
+        this.material= req.getMaterial();
+        this.discplina = req.getSubject();
+        this.origem = req.getSource();
+        this.ativo = req.isActive();
+        this.terminado = req.isTerminated();
+        this.completo = req.isComplete();
+    }
+    
     
     /**
      * @return the dinicio

@@ -57,10 +57,10 @@ public class Clavicela {
         Langs.Locale cla = new Langs.Locale();
         cla.setLocale("en.EN");
         System.out.println(cla.translate("Professor"));
-        java.util.List<String> lista = cla.getlist(3);
+        /*java.util.List<String> lista = cla.getlist(3);
         lista.stream().forEach((g) -> {
             System.out.println(g);
-        });
+        });*/
 
         //System.out.println(sala1.hasSpace(79));
         /*
@@ -98,9 +98,11 @@ public class Clavicela {
         System.out.println(ma.getDescription());
         System.out.println(ma.getCodeOfMaterial());
         ma.setCodeOfMaterial("rto");
+        cla.setLocale("es-ES");
         System.out.println(ma.getCodeOfMaterial());
-        ma.setMaterialImage(FileIOAux.ImageAux.resize(FileIOAux.ImageAux.getImageFromFile(null),100,100), FileIOAux.ImageAux.extensao);
-        //System.out.println(ma.getMaterialImage());
+        ma.setMaterialImage(FileIOAux.ImageAux.resize(FileIOAux.ImageAux.getImageFromFileChooser(null,cla),100,100), FileIOAux.ImageAux.extensao);
+
+//System.out.println(ma.getMaterialImage());
         List<Material> tmas = teste.getMaterials(2);
         if (tmas.size() > 0) {
             for (int i=0 ; i<tmas.size();i++){

@@ -6,6 +6,7 @@
 package Testes;
 
 import TimeDate.Date;
+import TimeDate.Holiday;
 import TimeDate.WeekDay;
 import java.text.ParseException;
 import java.util.List;
@@ -38,11 +39,9 @@ public class Teste3 {
         } catch (ParseException ex) {
             Logger.getLogger(Teste3.class.getName()).log(Level.SEVERE, null, ex);
         }
-       
         System.out.println(date.dateBefore(1736054));
-       
         TimeDate.Holiday holoo = new TimeDate.Holiday();
-        TimeDate.Holiday [] dat = holoo.getMobileHolidays(2078);
+        TimeDate.Holiday [] dat = Holiday.getMobileHolidays(2078);
         if (dat.length > 0) {
             System.out.println("maior que 0");
         } else {

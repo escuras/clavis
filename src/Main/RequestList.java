@@ -79,6 +79,12 @@ public class RequestList {
         }
     }
     
+    public Clavis.Request getSelectedRequest(int valor) {
+        Clavis.Request[] requests2 = new Clavis.Request[this.requests.size()];
+        requests2 = this.requests.toArray(requests2);
+        return requests2[valor];
+    }
+    
     public void make(){
         HandlingCSV han = new HandlingCSV(csv);
         han.searchElements();
