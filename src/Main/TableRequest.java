@@ -165,7 +165,7 @@ public class TableRequest {
 }
 
 class ButtonRenderer extends JToggleButton implements TableCellRenderer {
-
+    private static final long serialVersionUID =1L;
     Langs.Locale lingua;
 
     public ButtonRenderer(Langs.Locale lingua) {
@@ -202,7 +202,7 @@ class ButtonRenderer extends JToggleButton implements TableCellRenderer {
 }
 
 class ButtonEditor extends DefaultCellEditor {
-
+    private static final long serialVersionUID =1L;
     protected JButton button;
     private int selecionado;
     private boolean active;

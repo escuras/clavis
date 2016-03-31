@@ -14,6 +14,7 @@ import javax.swing.ImageIcon;
  */
 public class Teste extends javax.swing.JFrame {
 
+    private static final long serialVersionUID =1L;
     /**
      * Creates new form Teste
      */
