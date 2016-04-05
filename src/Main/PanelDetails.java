@@ -5,7 +5,21 @@
  */
 package Main;
 
+import com.kitfox.svg.SVGDiagram;
+import com.kitfox.svg.SVGException;
+import com.kitfox.svg.SVGUniverse;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Rectangle;
+import java.awt.Shape;
+import java.awt.Stroke;
+import java.awt.geom.AffineTransform;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Group;
@@ -16,8 +30,9 @@ import javax.swing.JPanel;
  *
  * @author toze
  */
-public class PanelInformacoes extends JPanel {
-    private static final long serialVersionUID =1L;
+public class PanelDetails extends JPanel {
+
+    private static final long serialVersionUID = 1L;
     private static final Color DEFAULT_COLOR = Color.BLACK;
     private Color color;
     private Color subTitleColor;
@@ -28,12 +43,31 @@ public class PanelInformacoes extends JPanel {
     private Langs.Locale lingua;
     private String[] resultados;
     private int intervalo;
-
-    public PanelInformacoes(Color color, String titulo, String[] titulos, String[] resultados, Langs.Locale lingua) {
+    private SVGUniverse svg;
+    private SVGDiagram diagrama;
+    private JPanel panel;
+    
+    public PanelDetails(Langs.Locale lingua,Color color){
         super();
-        this.setMinimumSize(new java.awt.Dimension(1, 1));
-        this.setPreferredSize(new java.awt.Dimension(240, 400));
-        this.setBackground(color);
+        this.color = color;
+        this.titleColor = DEFAULT_COLOR;
+        this.textColor = DEFAULT_COLOR;
+        this.subTitleColor = DEFAULT_COLOR;
+        this.lingua = lingua;
+        this.titulo = "";
+        this.intervalo = 10;
+        this.titulos = new String[]{};
+        this.resultados = new String[]{};
+        svg = new SVGUniverse();
+        InputStream is = this.getClass().getResourceAsStream("Images/chave.svg");
+        try {
+            diagrama = svg.getDiagram(svg.loadSVG(is,"chave"));
+            System.out.println(diagrama.getWidth());
+        } catch (IOException ex) {}
+    }
+
+    public PanelDetails(Color color, String titulo, String[] titulos, String[] resultados, Langs.Locale lingua) {
+        super();
         this.color = color;
         this.titleColor = DEFAULT_COLOR;
         this.textColor = DEFAULT_COLOR;
@@ -44,14 +78,33 @@ public class PanelInformacoes extends JPanel {
         if (titulos.length == resultados.length) {
             this.titulos = titulos;
             this.resultados = resultados;
-        }else {
+        } else {
             this.titulos = new String[]{};
             this.resultados = new String[]{};
         }
+        svg = new SVGUniverse();
+        InputStream is = this.getClass().getResourceAsStream("Images/chave.svg");
+        try {
+            System.out.println(is.available());
+        } catch (IOException ex) {
+            Logger.getLogger(PanelDetails.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            diagrama = svg.getDiagram(svg.loadSVG(is,"chave"));
+            System.out.println(diagrama.getWidth());
+        } catch (IOException ex) {
+            System.out.println("erro null2");
+            Logger.getLogger(PanelDetails.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
     public void create() {
+        if (resultados.length > 0) {
             JLabel ltitulo = new JLabel();
+            this.setMinimumSize(new java.awt.Dimension(1, 1));
+            this.setPreferredSize(new java.awt.Dimension(240, 400));
+            this.setBackground(color);
             ltitulo.setForeground(this.titleColor);
             ltitulo.setFont(new java.awt.Font("Cantarell", 1, 14));
             ltitulo.setText(lingua.translate(titulo));
@@ -82,13 +135,43 @@ public class PanelInformacoes extends JPanel {
                 grupo.addComponent(paineis[i], javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE);
                 grupo.addComponent(paineis2[i], javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE);
                 grupo2.addComponent(paineis[i], javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE);
-                grupo2.addGap(5, 10, 15);
+                grupo2.addGap(3, 5, 7);
                 grupo2.addComponent(paineis2[i], javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE);
-                grupo2.addGap(5 + intervalo);
+                grupo2.addGap(5 + intervalo, 7 + intervalo, 9 + intervalo);
                 i++;
             }
             layout.setVerticalGroup(grupo2);
             layout.setHorizontalGroup(grupo);
+        } else {
+            panel = new PanelDetails(lingua,color) {
+                
+            @Override
+            public void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                this.setMinimumSize(new java.awt.Dimension(1, 1));
+                this.setPreferredSize(new java.awt.Dimension(240, 400));
+                this.setBackground(color);
+                Graphics2D g2 = (Graphics2D) g;
+                try {
+                    AffineTransform at = new AffineTransform();
+                    at.setToScale(this.getWidth()/(diagrama.getWidth() +10), this.getWidth()/(diagrama.getWidth()+10));
+                    g2.setColor(Color.BLACK);
+                    g2.transform(at);
+                    g2.translate(5, 6);
+                    diagrama.setIgnoringClipHeuristic(true);
+                    diagrama.render(g2);
+                } catch (SVGException ex) {
+                    Logger.getLogger(PanelDetails.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                //g2.fill3DRect(0,0 , 50, 100, true);
+                //g2.scale(3, 3);
+                //g2.fill3DRect(0,0 , 50, 100, true);
+                //g2.scale(3, 3);
+                }
+            };
+            panel.setBackground(color);
+        }
+
     }
 
     /**
@@ -216,5 +299,30 @@ public class PanelInformacoes extends JPanel {
     public void setTitleColor(Color titleColor) {
         this.titleColor = titleColor;
     }
+    
+    public JPanel alternativePanel(){
+        return this.panel;
+    }
+    
+    
+    class PanelImage extends JPanel{
+        private SVGDiagram diagrama;
+        
+        public PanelImage(SVGDiagram diagrama){
+            this.diagrama = diagrama;
+        }
+        
+        @Override
+        public void paintComponents(Graphics g){
+            super.paintComponent(g);
+            Graphics2D g2 = (Graphics2D)g;
+            try {
+                diagrama.render(g2);
+            } catch (SVGException ex) {
+                 
+            }
+        }
+    }
 
 }
+

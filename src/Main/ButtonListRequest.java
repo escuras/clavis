@@ -95,7 +95,7 @@ public class ButtonListRequest{
             pane.setMaximumSize(new Dimension(Integer.MAX_VALUE,Integer.MAX_VALUE));
             pane.setPreferredSize(new Dimension(100, 300));
             pane.setMaximumSize(new Dimension(120000,120000));
-            pane.setBackground(Color.WHITE);
+            pane.setBackground(Color.DARK_GRAY);
             aux.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
             for (javax.swing.JButton bt : bLista){
                 pane.add(bt);

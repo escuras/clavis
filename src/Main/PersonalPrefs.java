@@ -30,7 +30,8 @@ public class PersonalPrefs extends KeyQuest {
         setBounds(x, y, w, h);
         PersonalPrefs.lingua = new Langs.Locale();
         PersonalPrefs.lingua.setLocale(lang); 
-        this.revalidate();
+        setFocusableWindowState(true); 
+        this.pack();
     }
     
     public void stop(){
