@@ -9,12 +9,8 @@ import com.kitfox.svg.SVGDiagram;
 import com.kitfox.svg.SVGException;
 import com.kitfox.svg.SVGUniverse;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
-import java.awt.Shape;
-import java.awt.Stroke;
 import java.awt.geom.AffineTransform;
 import java.io.IOException;
 import java.io.InputStream;
@@ -43,11 +39,11 @@ public class PanelDetails extends JPanel {
     private Langs.Locale lingua;
     private String[] resultados;
     private int intervalo;
-    private SVGUniverse svg;
     private SVGDiagram diagrama;
     private JPanel panel;
-    
-    public PanelDetails(Langs.Locale lingua,Color color){
+    private String nome_imagem;
+
+    public PanelDetails(Langs.Locale lingua, Color color, String imagem) {
         super();
         this.color = color;
         this.titleColor = DEFAULT_COLOR;
@@ -55,18 +51,18 @@ public class PanelDetails extends JPanel {
         this.subTitleColor = DEFAULT_COLOR;
         this.lingua = lingua;
         this.titulo = "";
+        this.nome_imagem = imagem;
         this.intervalo = 10;
         this.titulos = new String[]{};
         this.resultados = new String[]{};
-        svg = new SVGUniverse();
-        InputStream is = this.getClass().getResourceAsStream("Images/chave.svg");
+        SVGUniverse svg = new SVGUniverse();
+        InputStream is = this.getClass().getResourceAsStream("Images/" + imagem + ".svg");
         try {
-            diagrama = svg.getDiagram(svg.loadSVG(is,"chave"));
-            System.out.println(diagrama.getWidth());
+            diagrama = svg.getDiagram(svg.loadSVG(is, imagem));
         } catch (IOException ex) {}
     }
 
-    public PanelDetails(Color color, String titulo, String[] titulos, String[] resultados, Langs.Locale lingua) {
+    public PanelDetails(Color color, String titulo, String[] titulos, String[] resultados, Langs.Locale lingua, String imagem) {
         super();
         this.color = color;
         this.titleColor = DEFAULT_COLOR;
@@ -75,6 +71,7 @@ public class PanelDetails extends JPanel {
         this.lingua = lingua;
         this.titulo = titulo;
         this.intervalo = 10;
+        this.nome_imagem = imagem;
         if (titulos.length == resultados.length) {
             this.titulos = titulos;
             this.resultados = resultados;
@@ -82,20 +79,11 @@ public class PanelDetails extends JPanel {
             this.titulos = new String[]{};
             this.resultados = new String[]{};
         }
-        svg = new SVGUniverse();
-        InputStream is = this.getClass().getResourceAsStream("Images/chave.svg");
+        SVGUniverse svg = new SVGUniverse();
+        InputStream is = this.getClass().getResourceAsStream("Images/" + imagem + ".svg");
         try {
-            System.out.println(is.available());
-        } catch (IOException ex) {
-            Logger.getLogger(PanelDetails.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        try {
-            diagrama = svg.getDiagram(svg.loadSVG(is,"chave"));
-            System.out.println(diagrama.getWidth());
-        } catch (IOException ex) {
-            System.out.println("erro null2");
-            Logger.getLogger(PanelDetails.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            diagrama = svg.getDiagram(svg.loadSVG(is, imagem));
+        } catch (IOException ex) {}
 
     }
 
@@ -143,30 +131,25 @@ public class PanelDetails extends JPanel {
             layout.setVerticalGroup(grupo2);
             layout.setHorizontalGroup(grupo);
         } else {
-            panel = new PanelDetails(lingua,color) {
-                
-            @Override
-            public void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                this.setMinimumSize(new java.awt.Dimension(1, 1));
-                this.setPreferredSize(new java.awt.Dimension(240, 400));
-                this.setBackground(color);
-                Graphics2D g2 = (Graphics2D) g;
-                try {
-                    AffineTransform at = new AffineTransform();
-                    at.setToScale(this.getWidth()/(diagrama.getWidth() +10), this.getWidth()/(diagrama.getWidth()+10));
-                    g2.setColor(Color.BLACK);
-                    g2.transform(at);
-                    g2.translate(5, 6);
-                    diagrama.setIgnoringClipHeuristic(true);
-                    diagrama.render(g2);
-                } catch (SVGException ex) {
-                    Logger.getLogger(PanelDetails.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                //g2.fill3DRect(0,0 , 50, 100, true);
-                //g2.scale(3, 3);
-                //g2.fill3DRect(0,0 , 50, 100, true);
-                //g2.scale(3, 3);
+            panel = new PanelDetails(lingua, color, nome_imagem) {
+                @Override
+                public void paintComponent(Graphics g) {
+                    super.paintComponent(g);
+                    this.setMinimumSize(new java.awt.Dimension(1, 1));
+                    this.setPreferredSize(new java.awt.Dimension(240, 400));
+                    this.setBackground(color);
+                    Graphics2D g2 = (Graphics2D) g;
+                    try {
+                        AffineTransform at = new AffineTransform();
+                        at.setToScale(this.getWidth() / (diagrama.getWidth() + 10), this.getWidth() / (diagrama.getWidth() + 10));
+                        g2.setColor(Color.BLACK);
+                        g2.transform(at);
+                        g2.translate(5, 6);
+                        diagrama.setIgnoringClipHeuristic(true);
+                        diagrama.render(g2);
+                    } catch (SVGException ex) {
+                        Logger.getLogger(PanelDetails.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
             };
             panel.setBackground(color);
@@ -299,30 +282,8 @@ public class PanelDetails extends JPanel {
     public void setTitleColor(Color titleColor) {
         this.titleColor = titleColor;
     }
-    
-    public JPanel alternativePanel(){
+
+    public JPanel alternativePanel() {
         return this.panel;
     }
-    
-    
-    class PanelImage extends JPanel{
-        private SVGDiagram diagrama;
-        
-        public PanelImage(SVGDiagram diagrama){
-            this.diagrama = diagrama;
-        }
-        
-        @Override
-        public void paintComponents(Graphics g){
-            super.paintComponent(g);
-            Graphics2D g2 = (Graphics2D)g;
-            try {
-                diagrama.render(g2);
-            } catch (SVGException ex) {
-                 
-            }
-        }
-    }
-
 }
-

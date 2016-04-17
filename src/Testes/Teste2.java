@@ -63,10 +63,13 @@ public class Teste2 {
         }
         
         for (Clavis.Request re : req) {
-            System.out.print(re.getDate().toString()+ " - "+re.getPerson().getName()+" - "+re.getMaterial().getDescription() + " - "+ re.getTimeBegin().toString(0));
+            System.out.print(re.getBeginDate().toString()+ " - "+re.getPerson().getName()+" - "+re.getMaterial().getDescription() + " - "+ re.getTimeBegin().toString(0));
             System.out.println("");
         }
         
+        TimeDate.Time tempo = new TimeDate.Time();
+        TimeDate.Time tempo2 = new TimeDate.Time(22, 43);
+        System.out.println(tempo.compareTime(tempo2));
         
         
         

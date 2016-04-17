@@ -16,12 +16,12 @@ public class ElementsCSV  {
     private int minutoIni;
     private int horaFim;
     private int minutoFim;
-    private String nomedocente;
-    private String cddocente;
+    private String nomeperson;
+    private String cdperson;
     private String nomedisciplina;
     private String cddisciplina;
-    private String sala;
-    private String cdsala;
+    private String material;
+    private String cdmaterial;
     
     
     public ElementsCSV(){
@@ -30,26 +30,26 @@ public class ElementsCSV  {
         minutoIni = 0;
         horaFim = 0;
         minutoFim = 0;
-        nomedocente = "";
-        cddocente = "";
+        nomeperson = "";
+        cdperson = "";
         nomedisciplina = "";
         cddisciplina = "";
-        sala = "";
-        cdsala = "";
+        material = "";
+        cdmaterial = "";
     }
     
-    public ElementsCSV(int diasemana, int horaIni, int horaFim, int minutoIni, int minutoFim, String nomedocente, String cddocente, String nomedisciplina, String cddisciplina, String sala, String cdsala){
+    public ElementsCSV(int diasemana, int horaIni, int horaFim, int minutoIni, int minutoFim, String nomeperson, String cdperson, String nomedisciplina, String cddisciplina, String material, String cdmaterial){
         this.diasemana = diasemana;
         this.horaIni = horaIni;
         this.minutoIni = minutoIni;
         this.horaFim = horaFim;
         this.minutoFim = minutoFim;
-        this.nomedocente = nomedocente;
-        this.cddocente = cddocente;
+        this.nomeperson = nomeperson;
+        this.cdperson = cdperson;
         this.nomedisciplina = nomedisciplina;
         this.cddisciplina = cddisciplina;
-        this.sala = sala;
-        this.cdsala = cdsala;
+        this.material = material;
+        this.cdmaterial = cdmaterial;
     }
     
     public ElementsCSV(ElementsCSV csv)
@@ -59,12 +59,12 @@ public class ElementsCSV  {
         this.minutoIni = csv.getMinuteIni();
         this.horaFim = csv.getHourEnd();
         this.minutoFim = csv.getMinuteEnd();
-        this.nomedocente = csv.getTeacherName();
-        this.cddocente = csv.getCdTeacher();
+        this.nomeperson = csv.getPersonName();
+        this.cdperson = csv.getPersonCode();
         this.nomedisciplina = csv.getSubjectName();
         this.cddisciplina = csv.getCdSubject();
-        this.sala = csv.getClassDescription();
-        this.cdsala = csv.getCdClassRoom();
+        this.material = csv.getMaterialDescription();
+        this.cdmaterial = csv.getMaterialCode();
     }
    
 
@@ -140,31 +140,31 @@ public class ElementsCSV  {
     }
 
     /**
-     * @return the nomedocente
+     * @return the nomeperson
      */
-    public String getTeacherName() {
-        return nomedocente;
+    public String getPersonName() {
+        return nomeperson;
     }
 
     /**
-     * @param nomedocente the nomedocente to set
+     * @param nomeperson the nomeperson to set
      */
-    public void setTeacherName(String nomedocente) {
-        this.nomedocente = nomedocente;
+    public void setPersonName(String nomeperson) {
+        this.nomeperson = nomeperson;
     }
 
     /**
      * @return the cddocente
      */
-    public String getCdTeacher() {
-        return cddocente;
+    public String getPersonCode() {
+        return cdperson;
     }
 
     /**
-     * @param cddocente the cddocente to set
+     * @param cdperson the cddocente to set
      */
-    public void setCdTeacher(String cddocente) {
-        this.cddocente = cddocente;
+    public void setPersonCode(String cdperson) {
+        this.cdperson = cdperson;
     }
 
     /**
@@ -198,28 +198,28 @@ public class ElementsCSV  {
     /**
      * @return the sala
      */
-    public String getClassDescription() {
-        return sala;
+    public String getMaterialDescription() {
+        return material;
     }
 
     /**
-     * @param sala the sala to set
+     * @param material the sala to set
      */
-    public void setClassDescription(String sala) {
-        this.sala = sala;
+    public void setMaterialDescription(String material) {
+        this.material = material;
     }
 
     /**
-     * @return the cdsala
+     * @return the cdmaterial
      */
-    public String getCdClassRoom() {
-        return cdsala;
+    public String getMaterialCode() {
+        return cdmaterial;
     }
 
     /**
-     * @param cdsala the cdsala to set
+     * @param cdmaterial the cdmaterial to set
      */
-    public void setCdClassRoom(String cdsala) {
-        this.cdsala = cdsala;
+    public void setCdClassRoom(String cdmaterial) {
+        this.cdmaterial = cdmaterial;
     }
 }

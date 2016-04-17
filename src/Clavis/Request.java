@@ -12,7 +12,8 @@ import TimeDate.Date;
  * @author toze
  */
 public class Request implements Comparable<Request> {
-    private Date date;
+    private Date begin;
+    private Date end;
     private WeekDay dia;
     private Time tinicio;
     private Time tfim;
@@ -24,8 +25,9 @@ public class Request implements Comparable<Request> {
     private boolean terminado;
     private boolean completo;
     
-    public Request(Date date, WeekDay dia, Time tinicio, Time tfim, Person pessoa, Material material, String origem){
-        this.date = date;
+    public Request(Date date, Date date2, WeekDay dia, Time tinicio, Time tfim, Person pessoa, Material material, String origem){
+        this.begin = date;
+        this.end = date2;
         this.dia = dia;
         this.tinicio = tinicio;
         this.tfim = tfim;
@@ -38,8 +40,9 @@ public class Request implements Comparable<Request> {
         this.completo = false;
     }
     
-    public Request(Date date, WeekDay dia, Time tinicio, Time tfim, Person pessoa, Material material, String origem, boolean ativo, boolean terminado, boolean completo){
-        this.date = date;
+    public Request(Date date, Date date2, WeekDay dia, Time tinicio, Time tfim, Person pessoa, Material material, String origem, boolean ativo, boolean terminado, boolean completo){
+        this.begin = date;
+        this.end = date2;
         this.dia = dia;
         this.tinicio = tinicio;
         this.tfim = tfim;
@@ -52,8 +55,9 @@ public class Request implements Comparable<Request> {
         this.completo = completo;
     }
     
-    public Request(Date date, WeekDay dia, Time tinicio, Time tfim, Person pessoa, Material material, Subject disciplina, String origem, boolean ativo, boolean terminado, boolean completo){
-        this.date = date;
+    public Request(Date date, Date date2, WeekDay dia, Time tinicio, Time tfim, Person pessoa, Material material, Subject disciplina, String origem, boolean ativo, boolean terminado, boolean completo){
+        this.begin = date;
+        this.end = date2;
         this.dia = dia;
         this.tinicio = tinicio;
         this.tfim = tfim;
@@ -66,9 +70,9 @@ public class Request implements Comparable<Request> {
         this.completo= completo;
     }
     
-    public Request(Date date, WeekDay dia, Time tinicio, Time tfim, Person pessoa, Material material, Subject disciplina, String origem){
-        this.date = date;
-        this.dia = dia;
+    public Request(Date date, Date date2, WeekDay dia, Time tinicio, Time tfim, Person pessoa, Material material, Subject disciplina, String origem){
+        this.begin = date;
+        this.end = date2;
         this.tinicio = tinicio;
         this.tfim = tfim;
         this.pessoa = pessoa;
@@ -81,7 +85,8 @@ public class Request implements Comparable<Request> {
     }
     
     public Request(Request req){
-        this.date = req.getDate();
+        this.begin = req.getBeginDate();
+        this.end = req.getEndDate();
         this.dia = req.getWeekDay();
         this.tinicio = req.getTimeBegin();
         this.tfim = req.getTimeEnd();
@@ -98,15 +103,29 @@ public class Request implements Comparable<Request> {
     /**
      * @return the dinicio
      */
-    public Date getDate() {
-        return date;
+    public Date getBeginDate() {
+        return begin;
     }
 
     /**
      * @param date 
      */
-    public void setDate(Date date) {
-        this.date = date;
+    public void setBeginDate(Date date) {
+        this.begin = date;
+    }
+    
+    /**
+     * @return the dinicio
+     */
+    public Date getEndDate() {
+        return end;
+    }
+
+    /**
+     * @param date 
+     */
+    public void setEndDate(Date date) {
+        this.end = date;
     }
 
     /**
@@ -234,9 +253,9 @@ public class Request implements Comparable<Request> {
     @Override
     public int compareTo(Request o) {
         int valor;
-        if((valor = Integer.compare(this.getDate().getYear(), o.getDate().getYear())) == 0){
-            if ((valor = Integer.compare(this.getDate().getMonth(), o.getDate().getMonth())) == 0) {
-                if ((valor = Integer.compare(this.getDate().getDay(), o.getDate().getDay())) == 0) {
+        if((valor = Integer.compare(this.getBeginDate().getYear(), o.getBeginDate().getYear())) == 0){
+            if ((valor = Integer.compare(this.getBeginDate().getMonth(), o.getBeginDate().getMonth())) == 0) {
+                if ((valor = Integer.compare(this.getBeginDate().getDay(), o.getBeginDate().getDay())) == 0) {
                     if ((valor = Integer.compare(this.getTimeBegin().getHour(), o.getTimeBegin().getHour())) == 0) {
                         if ((valor = Integer.compare(this.getTimeBegin().getMinutes(), o.getTimeBegin().getMinutes())) == 0) {
                             valor = this.getPerson().getName().compareToIgnoreCase(o.getPerson().getName());

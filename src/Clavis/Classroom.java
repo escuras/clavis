@@ -10,56 +10,72 @@ package Clavis;
  * @author toze
  */
 public class Classroom extends Material{
-    private int numero;
+    private String outros;
     private int ncomputadores; 
     private int lugares;
     private boolean projetor;
+    private boolean quadro;
     private java.util.ArrayList<Subject> disciplinas;
     
     
     public Classroom(){
         super();
-        this.numero = -1;
+        this.outros = "";
         this.ncomputadores = -1;
         this.lugares = -1;
         this.projetor = false;
+        this.quadro = false;
         this.disciplinas = new java.util.ArrayList<>();
     }
     
-    public Classroom(Material m, int numero){
+    public Classroom(Material m){
         super(m);
-        this.numero = numero;
+        this.outros = "";
         this.ncomputadores = -1;
         this.lugares = -1;
         this.projetor = false;
+        this.quadro = false;
         this.disciplinas = new java.util.ArrayList<>();
     }
     
-    public Classroom(Material m, int numero, int ncomputadores, int lugares, boolean projetor){
+    public Classroom(Material m, int ncomputadores, int lugares, boolean projetor, boolean quadro){
         super(m);
-        this.numero = numero;
+        this.outros = "";
         this.ncomputadores = ncomputadores;
         this.lugares = lugares;
         this.projetor = projetor;
+        this.quadro = quadro;
         this.disciplinas = new java.util.ArrayList<>();
     }
     
-    public Classroom(Material m, int numero, int ncomputadores, int lugares, boolean projetor, java.util.ArrayList<Subject> disciplinas){
+    public Classroom(Material m, String outros, int ncomputadores, int lugares, boolean projetor, boolean quadro){
         super(m);
-        this.numero = numero;
+        this.outros = outros;
         this.ncomputadores = ncomputadores;
         this.lugares = lugares;
         this.projetor = projetor;
+        this.quadro = quadro;
+        this.disciplinas = new java.util.ArrayList<>();
+    }
+    
+    public Classroom(Material m, String outros, int ncomputadores, int lugares, boolean projetor, boolean quadro, java.util.ArrayList<Subject> disciplinas){
+        super(m);
+        this.outros = outros;
+        this.ncomputadores = ncomputadores;
+        this.lugares = lugares;
+        this.projetor = projetor;
+        this.quadro = quadro;
         this.disciplinas = disciplinas;
     }
 
     public Classroom(Classroom classroom){
         super(classroom);
-        this.numero = classroom.getNumber();
+        this.outros = classroom.getAnotherValues();
         this.ncomputadores = classroom.getComputers();
         this.lugares = classroom.getPlaces();
         this.projetor = classroom.hasProjector();
         this.disciplinas = classroom.getSubjects();
+        this.quadro = classroom.hasInteractiveTable();
     }
     
     public void addSubjectSpecific(Subject disciplina){
@@ -89,17 +105,17 @@ public class Classroom extends Material{
     } 
 
     /**
-     * @return the numero
+     * @return another values
      */
-    public int getNumber() {
-        return numero;
+    public String getAnotherValues() {
+        return this.outros;
     }
 
     /**
-     * @param numero the numero to set
+     * @param outros the another values to set
      */
-    public void setNumber(int numero) {
-        this.numero = numero;
+    public void setAnotherValues(String outros) {
+        this.outros = outros;
     }
 
     /**
@@ -160,6 +176,20 @@ public class Classroom extends Material{
      */
     public void setSubjects(java.util.ArrayList<Subject> disciplinas) {
         this.disciplinas = disciplinas;
+    }
+
+    /**
+     * @return the quadro
+     */
+    public boolean hasInteractiveTable() {
+        return quadro;
+    }
+
+    /**
+     * @param quadro the quadro to set
+     */
+    public void setInteractiveTable(boolean quadro) {
+        this.quadro = quadro;
     }
     
 }

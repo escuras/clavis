@@ -472,6 +472,17 @@ public class Date {
         conta += this.dia;
         return conta;
     }
+    
+    private int getDayOfTheYear(int dia, int mes,int ano) {
+        int i = 1;
+        int conta = 0;
+        while (i < mes) {
+            conta += this.getDayOfTheMonth(i, ano);
+            i++;
+        }
+        conta += dia;
+        return conta;
+    }
 
     private int getDayOfTheMonth(int mes, int ano) {
         if ((mes > 0) && (mes < 13)) {

@@ -47,11 +47,11 @@ public class Clavicela {
         HandlingCSV han = new HandlingCSV("http://localhost:8080/horario_disciplinas.csv");
         List<ElementsCSV> elementos = han.getElements();
         elementos.stream().forEach((el) -> {
-            System.out.println(el.getTeacherName());
+            System.out.println(el.getPersonName());
         });
         TypeOfMaterial sala = new TypeOfMaterial(1, "sala", 50);
         Material m = new Material(sala, "2", "sala 1", "sala localizada em ...", false);
-        Classroom sala1 = new Classroom(m, 1, 50, 80, true);
+        Classroom sala1 = new Classroom(m, 1, 50, true, true);
         System.out.println(sala.toString());
         System.out.println(sala1.toString());
         Langs.Locale cla = new Langs.Locale();
@@ -100,7 +100,7 @@ public class Clavicela {
         ma.setCodeOfMaterial("rto");
         cla.setLocale("es-ES");
         System.out.println(ma.getCodeOfMaterial());
-        ma.setMaterialImage(FileIOAux.ImageAux.resize(FileIOAux.ImageAux.getImageFromFileChooser(null,cla),100,100), FileIOAux.ImageAux.extensao);
+        //ma.setMaterialImage(FileIOAux.ImageAux.resize(FileIOAux.ImageAux.getImageFromFileChooser(null,cla),100,100), FileIOAux.ImageAux.extensao);
 
 //System.out.println(ma.getMaterialImage());
         List<Material> tmas = teste.getMaterials(2);
@@ -109,6 +109,18 @@ public class Clavicela {
                 System.out.println(tmas.get(i).getDescription());
             }
         }
+        List<Classroom> croom = teste.getClassrooms();
+        if (croom.size() > 0) {
+             for (int i=0 ; i<croom.size();i++){
+                System.out.println(croom.get(i).getDescription()+ " lugares: "+ croom.get(i).getPlaces());
+            }
+        }
+        Material m2 = new Material(sala, "59", "sala 59", "sala localizada em ...", false);
+        System.out.println("Lugares "+teste.getClassroom(m2).getPlaces());
+        
+        
+        
+        
     }
 
 }

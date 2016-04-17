@@ -18,9 +18,9 @@ public class ObjectCSV {
     private TimeDate.Time horafim;
     
     public ObjectCSV(ElementsCSV elementos, Clavis.Function func, Clavis.TypeOfMaterial mat){
-        this.pessoa = new Clavis.Person(elementos.getTeacherName(),elementos.getCdTeacher(),func,func.getPrivilege());
+        this.pessoa = new Clavis.Person(elementos.getPersonName(),elementos.getPersonCode(),func,func.getPrivilege());
         this.disciplina =new Clavis.Subject(elementos.getSubjectName(),elementos.getCdSubject());
-        this.sala = new Clavis.Material(mat, elementos.getCdClassRoom(),elementos.getClassDescription(), false);
+        this.sala = new Clavis.Material(mat, elementos.getMaterialCode(),elementos.getMaterialDescription(), false);
         this.dia = new TimeDate.WeekDay(elementos.getDayWeek());
         this.horainicio = new TimeDate.Time(elementos.getHourIni(), elementos.getMinuteIni());
         this.horafim = new TimeDate.Time(elementos.getHourEnd(), elementos.getMinuteEnd());
@@ -37,7 +37,7 @@ public class ObjectCSV {
     }
     
     public Clavis.Request getRequest(TimeDate.Date date){
-        return new Clavis.Request(date, this.dia,this.horainicio,this.horafim,this.pessoa,this.sala,this.disciplina,"csv");
+        return new Clavis.Request(date, date, this.dia,this.horainicio,this.horafim,this.pessoa,this.sala,this.disciplina,"csv");
     } 
 
     /**
